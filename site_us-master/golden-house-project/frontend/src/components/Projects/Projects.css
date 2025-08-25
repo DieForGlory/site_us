@@ -1,0 +1,106 @@
+.projects-section-zigzag {
+    padding: 80px 20px;
+    background-color: #fff;
+}
+
+/* Стили заголовка остаются прежними */
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.section-header h1 {
+  font-size: 3rem; font-weight: 800;
+  margin-bottom: 15px; color: #222;
+}
+.section-header p {
+  font-size: 1.2rem; color: #666;
+  max-width: 600px; margin: 0 auto;
+}
+
+.projects-list-zigzag {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 60px; /* Расстояние между карточками */
+}
+
+.project-row {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+/* Модификатор для "зеркальных" рядов */
+.project-row.project-row-reverse {
+    flex-direction: row-reverse;
+}
+
+.project-row-image {
+    flex: 1 1 55%; /* Картинка занимает 55% ширины */
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.project-row-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.project-row-info {
+    flex: 1 1 45%; /* Текст занимает 45% */
+}
+
+.project-row-tag {
+    display: inline-block;
+    background-color: var(--color-golden);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.project-row-info h3 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.project-row-info p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.project-row-button {
+    background-color: #222;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.project-row-button:hover {
+    background-color: var(--color-golden);
+    transform: translateY(-3px);
+}
+
+/* Адаптивность */
+@media (max-width: 900px) {
+    .project-row, .project-row.project-row-reverse {
+        flex-direction: column; /* Все в одну колонку */
+    }
+    .project-row-info {
+        text-align: center;
+    }
+}

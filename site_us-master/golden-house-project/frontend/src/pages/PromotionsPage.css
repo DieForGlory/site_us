@@ -1,0 +1,89 @@
+.promotions-page {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px 80px 20px;
+}
+
+.promotions-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.promotions-header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.promotions-header p {
+    font-size: 1.2rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.promotions-list {
+    display: grid;
+    gap: 40px;
+}
+
+.promo-card-full {
+    position: relative;
+    padding: 60px;
+    color: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Прижимаем контент к низу */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    background-size: cover;
+    background-position: center;
+}
+
+.promo-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 100%);
+    z-index: 1;
+}
+
+.promo-card-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+}
+
+.promo-card-content h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.promo-card-content p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+.promo-card-button {
+    background-color: var(--color-golden);
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.promo-card-button:hover {
+    background-color: #fff;
+    color: var(--color-golden);
+    transform: scale(1.05);
+}

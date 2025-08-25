@@ -1,0 +1,46 @@
+.project-page-reimagined {
+    display: flex;
+    background-color: #fff;
+}
+
+.project-scrollable-content {
+    flex-grow: 1;
+    padding: 40px;
+}
+
+.content-block {
+    margin-bottom: 40px;
+}
+
+.hero-image {
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.text-block h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #007bff;
+    display: inline-block;
+}
+
+.text-block p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    max-width: 800px; /* Для лучшей читаемости */
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    font-size: 1.5rem;
+    color: #6c757d;
+}

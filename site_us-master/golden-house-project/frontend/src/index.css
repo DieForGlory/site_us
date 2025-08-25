@@ -1,0 +1,20 @@
+/* Сброс стилей и базовые настройки */
+:root {
+  --font-main: 'Manrope', sans-serif;
+  --color-text: #222222;
+  --color-background: #fdfdfd;
+  --color-golden: #c9a575; /* Фирменный золотой */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.6;
+}

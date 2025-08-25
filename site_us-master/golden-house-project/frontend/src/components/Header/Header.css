@@ -1,0 +1,110 @@
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 0;
+  z-index: 1000; /* <<-- Установите высокое значение, например, 1000 */
+  transition: all 0.4s ease-out;
+}
+
+/* Состояние хедера при скролле */
+.site-header.scrolled {
+  padding: 15px 0;
+  /* Эффект размытого стекла (glassmorphism) */
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Для Safari */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.4s ease-out;
+}
+
+.site-header.scrolled .logo {
+  color: #222; /* Цвет лого при скролле */
+}
+
+.main-nav {
+  display: flex;
+  gap: 35px;
+}
+
+.main-nav a {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 5px; /* Место для линии */
+  transition: color 0.4s ease-out;
+}
+
+.site-header.scrolled .main-nav a {
+  color: #333; /* Цвет ссылок при скролле */
+}
+
+/* Эффект подчеркивания при наведении */
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-golden);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.main-nav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.header-cta-button {
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid var(--color-golden);
+  padding: 8px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease-out;
+}
+
+.header-cta-button:hover {
+  background-color: var(--color-golden);
+  color: #fff;
+}
+
+.site-header.scrolled .header-cta-button {
+  color: var(--color-golden);
+}
+
+.site-header.scrolled .header-cta-button:hover {
+  color: #fff;
+}
+
+/* Скрываем навигацию и кнопку на мобильных */
+@media (max-width: 900px) {
+  .main-nav, .header-cta-button {
+    display: none;
+  }
+}

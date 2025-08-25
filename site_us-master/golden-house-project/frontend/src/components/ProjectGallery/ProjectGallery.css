@@ -1,0 +1,15 @@
+/* Styles for ProjectGallery.jsx */
+.gallery-block {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.gallery-image {
+    width: 100%;
+    padding-bottom: 65%; /* Соотношение сторон для изображений */
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
