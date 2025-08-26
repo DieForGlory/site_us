@@ -112,7 +112,6 @@ const Projects = () => {
 
   useEffect(() => {
     axios.get('http://127.0.0.1:5010/api/projects')
-      // --- ИЗМЕНЕНИЕ ЗДЕСЬ: УБИРАЕМ ФИЛЬТР ---
       .then(res => setProjects(res.data))
       .catch(err => console.error("Ошибка:", err));
   }, []);
@@ -139,20 +138,22 @@ const Projects = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
+              className="project-content-wrapper"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="project-text-content-new">
-                <h2 className="project-title-new">{activeProject.title}</h2>
-                <p className="project-full-description">{activeProject.description}</p>
-                <Link to={`/projects/${activeProject.id}`} className="project-details-button-new">
-                  Исследовать проект
-                </Link>
+              <h2 className="project-title-new">{activeProject.title}</h2>
+              <div className="project-details-layout">
+                <div className="project-text-content-new">
+                  <p className="project-full-description">{activeProject.description}</p>
+                  <Link to={`/projects/${activeProject.id}`} className="project-details-button-new">
+                    Исследовать проект
+                  </Link>
+                </div>
+                <ProjectGallery project={activeProject} />
               </div>
-
-              <ProjectGallery project={activeProject} />
             </motion.div>
           </AnimatePresence>
         </div>

@@ -17,16 +17,13 @@
     padding: 0 50px;
 }
 
-/* --- ИСПРАВЛЕНИЕ ЗДЕСЬ --- */
 .projects-list-column {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Центрируем всё содержимое колонки по вертикали */
+    justify-content: center;
     border-right: 1px solid #ddd;
     padding-right: 50px;
 }
-/* --- КОНЕЦ ИСПРАВЛЕНИЯ --- */
-
 
 .section-subtitle {
     font-size: 1rem;
@@ -40,8 +37,9 @@
 .projects-list-column ul {
     list-style: none;
     padding: 0;
-    margin: 0; /* Убираем лишние отступы */
+    margin: 0;
 }
+
 .projects-list-column li {
     font-size: 2.2rem;
     font-weight: 700;
@@ -50,21 +48,42 @@
     padding: 10px 0;
     transition: all 0.4s ease;
 }
+
 .projects-list-column li.active {
     color: #111;
     transform: translateX(10px);
 }
 
-.project-text-content-new {
-    /* Этот блок убираем из левой колонки, он теперь часть правой */
+.project-display-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 60px;
 }
 
 .project-title-new {
     font-size: 3.5rem;
     font-weight: 800;
     line-height: 1.2;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     color: #111;
+    text-align: left;
+    width: 100%;
+}
+
+.project-details-layout {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    width: 100%;
+}
+
+.project-text-content-new {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: stretch;
 }
 
 .project-full-description {
@@ -72,9 +91,8 @@
     line-height: 1.8;
     color: #555;
     margin-bottom: 30px;
-    max-height: 25vh; /* Ограничиваем высоту, чтобы не вылезал */
-    overflow-y: auto;
 }
+
 .project-details-button-new {
     background-color: #111;
     color: #fff;
@@ -86,25 +104,17 @@
     transition: all 0.3s ease;
     align-self: flex-start;
 }
-.project-details-button-new:hover { background-color: var(--color-golden); }
 
-
-.project-display-column {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-left: 60px;
+.project-details-button-new:hover {
+    background-color: var(--color-golden);
 }
 
 .project-gallery-container {
-    width: 100%;
+    flex: 1.5;
     max-width: 800px;
-    height: 80vh;
-    max-height: 650px;
+    height: 70vh;
+    max-height: 550px;
 }
-
-/* ... (остальные стили галереи остаются без изменений) ... */
 
 .main-gallery-swiper {
     width: 100%;
@@ -113,28 +123,34 @@
     margin-bottom: 10px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
+
 .gallery-main-image {
     width: 100%;
     height: 100%;
     background-size: cover;
     background-position: center;
 }
+
 .thumbs-container {
     height: 20%;
     position: relative;
     padding: 0 50px;
 }
+
 .thumbs-gallery-swiper {
     height: 100%;
 }
+
 .thumbs-gallery-swiper .swiper-slide {
     opacity: 0.5;
     transition: opacity 0.3s ease;
     cursor: pointer;
 }
+
 .thumbs-gallery-swiper .swiper-slide-thumb-active {
     opacity: 1;
 }
+
 .gallery-thumb-image {
     width: 100%;
     height: 100%;
@@ -142,6 +158,7 @@
     background-position: center;
     border-radius: 10px;
 }
+
 .gallery-nav {
     position: absolute;
     top: 50%;
@@ -152,6 +169,7 @@
     justify-content: space-between;
     z-index: 10;
 }
+
 .gallery-button-prev, .gallery-button-next {
     width: 40px;
     height: 40px;
@@ -162,6 +180,7 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
 .gallery-button-prev { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E"); }
 .gallery-button-next { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E"); }
 
@@ -174,11 +193,11 @@
         border-bottom: 1px solid #ddd;
         height: auto;
     }
-    .project-text-content-new {
-        height: auto;
-    }
     .project-display-column {
         padding-left: 0;
         padding-top: 40px;
+    }
+    .project-details-layout {
+        flex-direction: column;
     }
 }
