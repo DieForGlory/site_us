@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+// frontend/src/components/Advantages/Advantages.jsx
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import './Advantages.css';
 
-// Данные вынесены в массив для чистоты кода
 const advantagesData = [
   {
     icon: '🏆',
@@ -13,101 +13,76 @@ const advantagesData = [
   {
     icon: '📍',
     title: 'Уникальные локации',
-    description: 'Наши комплексы расположены в самых престижных и удобных для жизни районах, с развитой инфраструктурой и парками.',
+    description: 'Наши комплексы расположены в самых престижных и удобных для жизни районах.',
     img: 'https://images.unsplash.com/photo-1542361345-89e58247f2d5?q=80&w=1974'
   },
   {
     icon: '🌿',
     title: 'Инновации и комфорт',
-    description: 'Мы применяем передовые технологии в строительстве и продумываем каждую деталь для создания идеальной среды для жизни.',
+    description: 'Мы применяем передовые технологии для создания идеальной среды для жизни.',
     img: 'https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=2070'
-  },
-  {
-    icon: '🔑',
-    title: 'Гарантия и надежность',
-    description: 'Строгое соблюдение сроков, использование только качественных материалов и полная прозрачность на всех этапах строительства.',
-    img: 'https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?q=80&w=2070'
-  },
+  }
 ];
 
+// В компонент AdvantageCard не вносим изменений
+const AdvantageCard = ({ advantage, progress, range }) => {
+    // --- ИЗМЕНЕНИЕ ЛОГИКИ АНИМАЦИИ ---
+    // Создаем более резкий переход:
+    // Элемент полностью прозрачен -> быстро появляется -> виден -> быстро исчезает -> полностью прозрачен
+    const opacity = useTransform(progress,
+        [range[0], range[0] + 0.05, range[1] - 0.05, range[1]],
+        [0, 1, 1, 0]
+    );
+    const y = useTransform(progress,
+        [range[0], range[0] + 0.05],
+        [50, 0] // Только анимация появления
+    );
+
+    return (
+        <motion.div style={{ opacity, y }} className="advantage-card-content">
+            <span className="advantage-icon">{advantage.icon}</span>
+            <h2>{advantage.title}</h2>
+            <p>{advantage.description}</p>
+        </motion.div>
+    );
+};
+
+// В основной компонент Advantages не вносим изменений в структуру, только в AdvantageCard выше
 const Advantages = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeAdvantage = advantagesData[activeIndex];
-  const intervalRef = useRef(null);
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ['start start', 'end end']
+    });
 
-  useEffect(() => {
-    // Запускаем таймер, который меняет activeIndex каждые 4 секунды
-    intervalRef.current = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % advantagesData.length);
-    }, 4000); // 4000 миллисекунд = 4 секунды
-
-    // Функция очистки для предотвращения утечек памяти
-    return () => clearInterval(intervalRef.current);
-  }, []); // Пустой массив зависимостей, чтобы эффект запустился один раз
-
-  // Функция для ручного выбора (останавливает таймер)
-  const handleItemClick = (index) => {
-    clearInterval(intervalRef.current);
-    setActiveIndex(index);
-  };
-
-  return (
-    <section className="advantages-interactive-section">
-      <div className="advantages-interactive-container">
-        <div className="advantages-list">
-          <h2>Почему Golden House</h2>
-          <ul>
-            {advantagesData.map((item, index) => (
-              <motion.li
-                key={index}
-                className={index === activeIndex ? 'active' : ''}
-                onClick={() => handleItemClick(index)}
-                whileHover={{ x: 5 }}
-              >
-                <span className="advantage-list-icon">{item.icon}</span>
-                {item.title}
-              </motion.li>
-            ))}
-          </ul>
+    return (
+        <div ref={containerRef} className="advantages-scrolly-container">
+            <div className="advantages-sticky-wrapper">
+                {advantagesData.map((advantage, i) => {
+                    const targetScale = 1 - ((advantagesData.length - i) * 0.05);
+                    return (
+                        <motion.div
+                            key={i}
+                            className="advantage-card-visual"
+                            style={{
+                                backgroundImage: `url(${advantage.img})`,
+                                scale: useTransform(scrollYProgress, [i / advantagesData.length, 1], [1, targetScale])
+                            }}
+                        >
+                           <div className="advantage-card-overlay"></div>
+                        </motion.div>
+                    );
+                })}
+                 <div className="advantage-text-container">
+                    {advantagesData.map((advantage, i) => {
+                        const start = i / advantagesData.length;
+                        const end = start + (1 / advantagesData.length);
+                        return <AdvantageCard key={i} advantage={advantage} progress={scrollYProgress} range={[start, end]} />
+                    })}
+                </div>
+            </div>
         </div>
-        <div className="advantage-content">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeIndex}
-              className="advantage-image"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              style={{ backgroundImage: `url(${activeAdvantage.img})` }}
-            >
-              <div className="advantage-image-overlay"></div>
-            </motion.div>
-          </AnimatePresence>
-          <div className="advantage-text-content">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={activeIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                {activeAdvantage.description}
-              </motion.p>
-            </AnimatePresence>
-          </div>
-        </div>
-      </div>
-
-      {/* Невидимый блок для предзагрузки изображений */}
-      <div style={{ display: 'none' }}>
-        {advantagesData.map(item => (
-          <img key={`preload-${item.title}`} src={item.img} alt="Preload" />
-        ))}
-      </div>
-    </section>
-  );
+    );
 };
 
 export default Advantages;

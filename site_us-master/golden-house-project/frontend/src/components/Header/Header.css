@@ -1,22 +1,29 @@
+/* frontend/src/components/Header/Header.css */
+
+:root {
+  --header-height: 80px; /* Зададим высоту хедера для консистентности */
+}
+
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 20px 0;
-  z-index: 1000; /* <<-- Установите высокое значение, например, 1000 */
-  transition: all 0.4s ease-out;
+  height: var(--header-height);
+  padding: 0; /* Убираем вертикальные паддинги, т.к. высота фиксирована */
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
 }
 
-/* Состояние хедера при скролле */
-.site-header.scrolled {
-  padding: 15px 0;
-  /* Эффект размытого стекла (glassmorphism) */
-  background-color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* Для Safari */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+/* Эффект "стекла" для прокрученного или светлого хедера */
+.site-header.scrolled,
+.site-header.light-theme {
+  background-color: rgba(255, 255, 255, 0.75); /* Чуть более прозрачный */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Тонкая, едва заметная граница */
 }
 
 .header-container {
@@ -26,23 +33,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
+/* --- ЛОГОТИП --- */
 .logo {
-  font-size: 1.6rem;
+  font-size: 1.8rem; /* Немного увеличим */
   font-weight: 800;
   color: #fff;
   text-decoration: none;
-  transition: color 0.4s ease-out;
+  transition: color 0.3s ease-in-out;
 }
 
-.site-header.scrolled .logo {
-  color: #222; /* Цвет лого при скролле */
-}
-
+/* --- НАВИГАЦИЯ --- */
 .main-nav {
   display: flex;
-  gap: 35px;
+  gap: 40px; /* Увеличим расстояние */
 }
 
 .main-nav a {
@@ -51,12 +57,8 @@
   color: #fff;
   text-decoration: none;
   position: relative;
-  padding-bottom: 5px; /* Место для линии */
-  transition: color 0.4s ease-out;
-}
-
-.site-header.scrolled .main-nav a {
-  color: #333; /* Цвет ссылок при скролле */
+  padding: 5px 0;
+  transition: color 0.3s ease-in-out;
 }
 
 /* Эффект подчеркивания при наведении */
@@ -72,37 +74,66 @@
   transform-origin: bottom right;
   transition: transform 0.3s ease-out;
 }
-
 .main-nav a:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
 
+/* --- КНОПКА "СВЯЗАТЬСЯ" --- */
 .header-cta-button {
   background-color: transparent;
   color: #fff;
-  border: 2px solid var(--color-golden);
-  padding: 8px 24px;
+  border: 2px solid #fff; /* Белая рамка по умолчанию */
+  padding: 10px 28px; /* Увеличим паддинги */
   border-radius: 8px;
   font-weight: 700;
   text-decoration: none;
-  transition: all 0.3s ease-out;
+  transition: all 0.3s ease-in-out;
+}
+.header-cta-button:hover {
+  background-color: #fff;
+  color: #111;
 }
 
-.header-cta-button:hover {
+/* --- СТИЛИ ДЛЯ СВЕТЛОЙ ТЕМЫ (НЕ ГЛАВНАЯ СТРАНИЦА) --- */
+.site-header.light-theme .logo,
+.site-header.light-theme .main-nav a {
+  color: #222; /* Делаем текст темным */
+}
+
+.site-header.light-theme .header-cta-button {
   background-color: var(--color-golden);
   color: #fff;
+  border-color: var(--color-golden);
+}
+
+.site-header.light-theme .header-cta-button:hover {
+  background-color: #333;
+  color: #fff;
+  border-color: #333;
+}
+
+
+/* --- СТИЛИ ПРИ СКРОЛЛЕ (ИМЕЮТ ПРИОРИТЕТ) --- */
+.site-header.scrolled .logo,
+.site-header.scrolled .main-nav a {
+  color: #222;
 }
 
 .site-header.scrolled .header-cta-button {
-  color: var(--color-golden);
+  background-color: var(--color-golden);
+  color: #fff;
+  border-color: var(--color-golden);
 }
 
 .site-header.scrolled .header-cta-button:hover {
+  background-color: #333; /* При наведении на скролле делаем кнопку темной */
+  border-color: #333;
   color: #fff;
 }
 
-/* Скрываем навигацию и кнопку на мобильных */
+
+/* --- АДАПТИВНОСТЬ --- */
 @media (max-width: 900px) {
   .main-nav, .header-cta-button {
     display: none;

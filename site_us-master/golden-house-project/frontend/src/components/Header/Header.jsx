@@ -1,22 +1,22 @@
+// frontend/src/components/Header/Header.jsx
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-// 1. Убедитесь, что Link импортируется из 'react-router-dom'
-import { Link } from 'react-router-dom';
+// 1. Импортируем Link и useLocation
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
 const navItemVariants = {
-  hover: {
-    y: -3,
-    transition: { duration: 0.2 }
-  },
-  tap: {
-    y: 0,
-    transition: { duration: 0.1 }
-  }
+  hover: { y: -3, transition: { duration: 0.2 } },
+  tap: { y: 0, transition: { duration: 0.1 } }
 };
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  // 2. Получаем информацию о текущем маршруте
+  const location = useLocation();
+
+  // 3. Определяем, является ли текущая страница страницей с "тёмным" фоном (главная)
+  const isHomePage = location.pathname === '/';
 
   const handleScroll = () => {
     setScrolled(window.scrollY > 50);
@@ -29,20 +29,23 @@ const Header = () => {
     };
   }, []);
 
+  // 4. Собираем классы для хедера:
+  // - 'scrolled' добавляется при прокрутке
+  // - 'light-theme' добавляется СРАЗУ, если это НЕ главная страница
+  const headerClasses = `site-header ${scrolled ? 'scrolled' : ''} ${!isHomePage ? 'light-theme' : ''}`;
+
   return (
-    <header className={scrolled ? "site-header scrolled" : "site-header"}>
+    <header className={headerClasses}>
       <div className="header-container">
-        {/* 2. Используем Link для логотипа */}
         <Link to="/" className="logo">
           Golden House
         </Link>
         <nav className="main-nav">
-          {/* 3. Каждая ссылка в навигации - это Link */}
           <motion.div variants={navItemVariants} whileHover="hover" whileTap="tap">
             <Link to="/#projects">Проекты</Link>
           </motion.div>
           <motion.div variants={navItemVariants} whileHover="hover" whileTap="tap">
-            <Link to="/#promotions">Акции</Link>
+            <Link to="/promotions">Акции</Link>
           </motion.div>
           <motion.div variants={navItemVariants} whileHover="hover" whileTap="tap">
             <Link to="/vacancies">Вакансии</Link>
@@ -51,7 +54,6 @@ const Header = () => {
             <Link to="/service">Клиентский сервис</Link>
           </motion.div>
         </nav>
-        {/* 4. Кнопка "Связаться" также является Link */}
         <Link to="/#contacts" className="header-cta-button">
           Связаться
         </Link>

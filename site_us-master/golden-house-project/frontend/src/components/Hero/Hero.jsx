@@ -1,66 +1,51 @@
+// frontend/src/components/Hero/Hero.jsx
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import './Hero.css';
 
-// Данные для наших точек интереса
-const hotspotsData = [
-  {
-    id: 1,
-    title: 'Скидка 15% в ЖК Infinity',
-    description: 'Только до конца лета на 3- и 4-комнатные квартиры.',
-    position: { top: '45%', left: '20%' } // Позиция в процентах
-  },
-  {
-    id: 2,
-    title: 'Рассрочка 0%',
-    description: 'В ЖК Parkent Plaza. Первый взнос от 30%.',
-    position: { top: '65%', left: '75%' }
-  }
-];
+// Импортируем иконку стрелки (можно скачать любую в формате SVG)
+import scrollIcon from '../../assets/scroll-down.svg';
 
 const Hero = () => {
   return (
-    <section className="hero-section">
+    <section className="hero-section-reimagined">
+      {/* Контейнер для фонового видео */}
+      <div className="video-background">
+        {/* Можно использовать любое подходящее видео, например, с Vimeo или YouTube */}
+        <video autoPlay loop muted playsInline>
+          <source
+            src="https://player.vimeo.com/external/370467551.sd.mp4?s=346b03413d1a73602d4156641e8c79c1e75c5005&profile_id=164&oauth2_token_id=57447761"
+            type="video/mp4"
+          />
+        </video>
+      </div>
       <div className="hero-overlay"></div>
       <div className="hero-content-wrapper">
-        <motion.div
-          className="hero-content"
+        <motion.h1
+          className="hero-title"
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
         >
-          <h1 className="hero-title">
-            Архитектура, создающая будущее
-          </h1>
-          <p className="hero-subtitle">
-            Откройте для себя новый уровень жизни в проектах от Golden House.
-          </p>
-        </motion.div>
+          Архитектура, <br /> создающая будущее
+        </motion.h1>
+        <motion.p
+          className="hero-subtitle"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+        >
+          Откройте для себя новый уровень жизни в проектах от Golden House.
+        </motion.p>
       </div>
-
-      {/* ==== НОВЫЙ БЛОК: ТОЧКИ ИНТЕРЕСА ==== */}
-      <div className="hotspots-container">
-        {hotspotsData.map(spot => (
-          <motion.div
-            className="hotspot"
-            key={spot.id}
-            style={spot.position}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5, delay: 1 + spot.id * 0.2 }}
-          >
-            <div className="hotspot-pulse"></div>
-            <div className="hotspot-dot"></div>
-            <div className="hotspot-tooltip">
-              <h4>{spot.title}</h4>
-              <p>{spot.description}</p>
-              <Link to="/promotions" className="tooltip-link">Подробнее →</Link>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-      {/* ==================================== */}
+      <motion.div
+        className="scroll-indicator"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1, delay: 1, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+      >
+        <img src={scrollIcon} alt="Scroll Down" />
+      </motion.div>
     </section>
   );
 };

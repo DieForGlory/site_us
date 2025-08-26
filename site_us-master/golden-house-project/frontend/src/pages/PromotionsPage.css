@@ -1,89 +1,113 @@
-.promotions-page {
+/* frontend/src/pages/PromotionsPage.css */
+.promotions-page-container {
     max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px 80px 20px;
+    margin: 0 auto;
+    padding: 120px 20px 80px 20px; /* Отступ сверху для хедера */
 }
-
-.promotions-header {
+.promotions-page-header {
     text-align: center;
     margin-bottom: 60px;
 }
-
-.promotions-header h1 {
+.breadcrumbs {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 20px;
+}
+.breadcrumbs a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.breadcrumbs a:hover {
+    color: var(--color-golden);
+}
+.promotions-page-header h1 {
     font-size: 3rem;
     font-weight: 800;
     margin-bottom: 15px;
     color: #222;
 }
-
-.promotions-header p {
+.promotions-page-header p {
     font-size: 1.2rem;
     color: #666;
     max-width: 600px;
     margin: 0 auto;
 }
-
-.promotions-list {
+.status-info {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    padding: 40px 0;
+}
+.promotions-grid {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     gap: 40px;
 }
-
-.promo-card-full {
-    position: relative;
-    padding: 60px;
-    color: #fff;
+.promo-card-new {
+    background-color: #fff;
     border-radius: 16px;
     overflow: hidden;
-    min-height: 400px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Прижимаем контент к низу */
-    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+.promo-card-new:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+.promo-card-image {
+    height: 220px;
     background-size: cover;
     background-position: center;
-}
-
-.promo-card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 100%);
-    z-index: 1;
-}
-
-.promo-card-content {
     position: relative;
-    z-index: 2;
-    max-width: 700px;
 }
-
-.promo-card-content h2 {
-    font-size: 2.2rem;
+.promo-card-expiry {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.promo-card-content-new {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.promo-card-content-new h3 {
+    font-size: 1.4rem;
     font-weight: 800;
     margin-bottom: 15px;
-    line-height: 1.3;
+    line-height: 1.4;
+    color: #222;
+    min-height: 56px; /* Резервируем место для 2 строк заголовка */
 }
-
-.promo-card-content p {
-    font-size: 1.1rem;
+.promo-card-content-new p {
+    font-size: 1rem;
+    color: #555;
     line-height: 1.7;
     margin-bottom: 25px;
-    opacity: 0.9;
+    flex-grow: 1;
 }
-
-.promo-card-button {
+.promo-card-cta {
+    display: inline-block;
+    align-self: flex-start;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.promo-card-cta:hover {
     background-color: var(--color-golden);
     color: #fff;
-    border: none;
-    padding: 12px 28px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.promo-card-button:hover {
-    background-color: #fff;
-    color: var(--color-golden);
-    transform: scale(1.05);
 }

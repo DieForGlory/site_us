@@ -1,32 +1,40 @@
+/* frontend/src/components/CompanyStats/CompanyStats.css */
 .stats-section-reimagined {
-    padding: 80px 20px;
-    background-color: #1a1a1a; /* Темный фон */
+    padding: 100px 20px;
+    background-color: var(--color-dark-bg); /* Используем новую переменную */
     color: #fff;
+    /* Добавляем фоновое изображение с эффектом параллакса */
+    background-image: linear-gradient(rgba(26,26,26,0.9), rgba(26,26,26,0.9)), url('https://images.unsplash.com/photo-1542361345-89e58247f2d5?q=80&w=1974');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
 }
 
 .stats-container-reimagined {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 2fr; /* Левая колонка для текста, правая для цифр */
+    grid-template-columns: 1fr 2fr;
     align-items: center;
     gap: 60px;
 }
 
 .stats-intro-text h2 {
-    font-size: 2.8rem;
+    font-size: 3rem;
     font-weight: 800;
     line-height: 1.3;
 }
 
 .stats-grid-reimagined {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2x2 сетка для цифр */
+    grid-template-columns: 1fr 1fr;
     gap: 50px;
+    border-left: 2px solid var(--color-golden);
+    padding-left: 50px;
 }
 
 .stat-item-reimagined .stat-number {
-    font-size: 4.5rem;
+    font-size: 5rem;
     font-weight: 800;
     color: var(--color-golden);
     line-height: 1.1;
@@ -34,21 +42,25 @@
 }
 
 .stat-item-reimagined .stat-text {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #aaa;
     margin-top: 10px;
 }
 
-/* Адаптивность */
 @media (max-width: 900px) {
     .stats-container-reimagined {
         grid-template-columns: 1fr;
         text-align: center;
     }
+    .stats-grid-reimagined {
+        border-left: none;
+        padding-left: 0;
+        margin-top: 40px;
+    }
 }
 
 @media (max-width: 500px) {
     .stats-grid-reimagined {
-        grid-template-columns: 1fr; /* Одна колонка на мобильных */
+        grid-template-columns: 1fr;
     }
 }

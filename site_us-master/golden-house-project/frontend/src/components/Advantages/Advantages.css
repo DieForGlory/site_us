@@ -1,103 +1,71 @@
-.advantages-interactive-section {
-    padding: 80px 20px;
-    background-color: #fff;
-}
-
-.advantages-interactive-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 400px 1fr; /* Левая колонка для списка, правая для контента */
-    gap: 60px;
-    align-items: center;
-    min-height: 500px;
-}
-
-.advantages-list h2 {
-    font-size: 2.8rem;
-    font-weight: 800;
-    margin-bottom: 40px;
-    line-height: 1.3;
-    color: #222;
-}
-
-.advantages-list ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.advantages-list li {
-    font-size: 1.2rem;
-    font-weight: 700;
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    color: #555;
-    border-left: 4px solid transparent;
-    transition: all 0.3s ease;
-}
-
-.advantages-list li:hover {
-    background-color: #f8f8f8;
-    color: #222;
-}
-
-.advantages-list li.active {
-    background-color: #f8f8f8;
-    color: #222;
-    border-left: 4px solid var(--color-golden);
-}
-
-.advantage-list-icon {
-    font-size: 1.5rem;
-    margin-right: 15px;
-}
-
-.advantage-content {
+/* frontend/src/components/Advantages/Advantages.css */
+.advantages-scrolly-container {
+    height: 300vh;
     position: relative;
-    height: 500px; /* Фиксированная высота для блока с картинкой */
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    background-color: #000;
 }
 
-.advantage-image {
+.advantages-sticky-wrapper {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.advantage-card-visual {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
+    will-change: transform; /* Оптимизация для анимации */
 }
-
-.advantage-image-overlay {
+.advantage-card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 60%);
+    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 100%); /* Сделаем градиент чуть темнее для лучшего контраста */
 }
 
-.advantage-text-content {
+.advantage-text-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+}
+
+.advantage-card-content {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 40px;
-    z-index: 2;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    color: #fff;
+    max-width: 500px; /* Немного увеличим ширину блока */
+    padding: 20px;
+}
+.advantage-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 20px;
 }
 
-.advantage-text-content p {
+/* --- ИСПРАВЛЕНИЕ ЗДЕСЬ --- */
+
+.advantage-card-content h2 {
+    font-size: 3.5rem;
+    font-weight: 700; /* Уменьшаем жирность с 800 до 700 */
+    margin-bottom: 20px;
+    letter-spacing: -0.02em; /* Немного сжимаем буквы, это стандарт для крупных заголовков */
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Добавляем тень для читаемости */
+}
+
+.advantage-card-content p {
     font-size: 1.2rem;
     line-height: 1.7;
-    color: #fff;
-    max-width: 80%;
-}
-
-/* Адаптивность */
-@media (max-width: 900px) {
-    .advantages-interactive-container {
-        grid-template-columns: 1fr; /* Все в одну колонку */
-    }
-    .advantages-list {
-        margin-bottom: 40px;
-    }
+    opacity: 0.9;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5); /* Добавляем тень для читаемости */
 }

@@ -1,106 +1,191 @@
-.projects-section-zigzag {
-    padding: 80px 20px;
-    background-color: #fff;
-}
-
-/* Стили заголовка остаются прежними */
-.section-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
-.section-header h1 {
-  font-size: 3rem; font-weight: 800;
-  margin-bottom: 15px; color: #222;
-}
-.section-header p {
-  font-size: 1.2rem; color: #666;
-  max-width: 600px; margin: 0 auto;
-}
-
-.projects-list-zigzag {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 60px; /* Расстояние между карточками */
-}
-
-.project-row {
+/* frontend/src/components/Projects/Projects.css */
+.projects-fullscreen-section {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Занимает всю высоту экрана */
+    min-height: 700px;
     display: flex;
     align-items: center;
-    gap: 50px;
-}
-
-/* Модификатор для "зеркальных" рядов */
-.project-row.project-row-reverse {
-    flex-direction: row-reverse;
-}
-
-.project-row-image {
-    flex: 1 1 55%; /* Картинка занимает 55% ширины */
-    border-radius: 16px;
+    justify-content: center;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    padding: 20px;
+    background-color: #111;
 }
 
-.project-row-image img {
+/* Размытый фон, который меняется вместе со слайдом */
+.projects-background-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px) brightness(0.5);
+    transform: scale(1.1);
+    transition: background-image 0.8s ease;
+    z-index: 1;
+}
+
+.projects-background-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+.projects-container {
+    position: relative;
+    width: 100%;
+    max-width: 1300px;
+    height: 100%;
+    max-height: 700px;
+    z-index: 3;
+}
+
+.projects-swiper-main {
     width: 100%;
     height: 100%;
-    display: block;
-    object-fit: cover;
+    position: static; /* Важно для позиционирования дочерних элементов */
 }
 
-.project-row-info {
-    flex: 1 1 45%; /* Текст занимает 45% */
+/* Контейнер для изображения внутри слайда */
+.slide-image-container {
+    position: absolute;
+    top: 0;
+    left: 50%; /* Изображение будет справа */
+    width: 50%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
 }
 
-.project-row-tag {
-    display: inline-block;
-    background-color: var(--color-golden);
+/* --- ОБЛАСТЬ С ТЕКСТОМ --- */
+.project-content-area {
+    position: absolute;
+    top: 50%;
+    left: 5%; /* Текст будет слева */
+    transform: translateY(-50%);
+    width: 40%;
     color: #fff;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
+    z-index: 10;
 }
 
-.project-row-info h3 {
-    font-size: 2.5rem;
+.project-title {
+    font-size: 4rem;
     font-weight: 800;
-    margin-bottom: 20px;
-    color: #222;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
 }
 
-.project-row-info p {
+.project-description {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #555;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    max-width: 500px;
+    opacity: 0.9;
 }
 
-.project-row-button {
-    background-color: #222;
+.project-details-button {
+    background-color: var(--color-golden);
     color: #fff;
-    padding: 15px 30px;
-    border-radius: 8px;
-    font-weight: 700;
+    padding: 16px 35px;
+    border-radius: 10px;
     text-decoration: none;
-    display: inline-block;
+    font-weight: 700;
     transition: all 0.3s ease;
 }
-
-.project-row-button:hover {
-    background-color: var(--color-golden);
-    transform: translateY(-3px);
+.project-details-button:hover {
+    background-color: #fff;
+    color: #111;
 }
 
-/* Адаптивность */
+/* --- НАВИГАЦИЯ --- */
+.project-nav-container {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    z-index: 10;
+}
+
+.project-counter {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.project-counter .divider {
+    margin: 0 10px;
+    opacity: 0.5;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 15px;
+}
+.project-short-description {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-golden);
+    margin-bottom: 20px;
+    display: block;
+}
+.swiper-button-prev-custom,
+.swiper-button-next-custom {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.swiper-button-prev-custom:hover,
+.swiper-button-next-custom:hover {
+    background-color: var(--color-golden);
+    border-color: var(--color-golden);
+}
+.swiper-button-prev-custom {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E");
+}
+.swiper-button-next-custom {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E");
+}
+
+/* Скрываем стандартные элементы Swiper, т.к. мы сделали кастомные */
+.projects-swiper-main .swiper-button-next,
+.projects-swiper-main .swiper-button-prev,
+.projects-swiper-main .swiper-pagination {
+    display: none;
+}
+
+/* Адаптивность для мобильных */
 @media (max-width: 900px) {
-    .project-row, .project-row.project-row-reverse {
-        flex-direction: column; /* Все в одну колонку */
+    .slide-image-container {
+        left: 0;
+        width: 100%;
+        height: 50%;
     }
-    .project-row-info {
-        text-align: center;
+    .project-content-area {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        transform: none;
+        padding: 30px;
+        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+    }
+    .project-title {
+        font-size: 2.5rem;
+    }
+    .project-nav-container {
+        bottom: auto;
+        top: 52%;
+        left: 50%;
+        transform: translateX(-50%);
     }
 }

@@ -1,53 +1,80 @@
-import React from 'react';
+// frontend/src/pages/PromotionsPage.jsx
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { motion } from 'framer-motion';
-import './PromotionsPage.css'; // Подключаем стили
-
-// Данные для страницы акций
-const promotionsData = [
-    {
-        title: "Скидка 15% на квартиры в ЖК Infinity",
-        description: "Только до конца лета! Успейте купить квартиру своей мечты с невероятной выгодой. Предложение распространяется на ограниченное количество 3- и 4-комнатных квартир.",
-        bg: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070'
-    },
-    {
-        title: "Рассрочка 0% на 3 года в Parkent Plaza",
-        description: "Первоначальный взнос всего 30% и никаких переплат. Ваша новая квартира стала еще доступнее. Идеальное решение для тех, кто планирует будущее.",
-        bg: 'https://images.unsplash.com/photo-1582463143926-a07c1b3a3c22?q=80&w=1932'
-    },
-    {
-        title: "Дизайн-проект в подарок",
-        description: "При покупке любой квартиры в ЖК Novza до конца осени, вы получаете эксклюзивный дизайн-проект от наших партнеров в подарок.",
-        bg: 'https://images.unsplash.com/photo-1600573472591-ee6b68d34869?q=80&w=2070'
-    }
-];
+import { Link } from 'react-router-dom';
+import './PromotionsPage.css';
 
 const PromotionsPage = () => {
+    const [promotions, setPromotions] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchPromotions = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:5010/api/promotions');
+                setPromotions(response.data);
+            } catch (error) {
+                console.error("Ошибка при загрузке акций:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchPromotions();
+    }, []);
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: { y: 0, opacity: 1 }
+    };
+
     return (
-        <div className="promotions-page">
-            <div className="promotions-header">
+        <div className="promotions-page-container">
+            <header className="promotions-page-header">
+                <nav className="breadcrumbs">
+                    <Link to="/">Главная</Link> / <span>Акции</span>
+                </nav>
                 <h1>Действующие акции</h1>
-                <p>Самые выгодные предложения для покупки вашей новой квартиры</p>
-            </div>
-            <div className="promotions-list">
-                {promotionsData.map((promo, index) => (
-                    <motion.div
-                        className="promo-card-full"
-                        key={index}
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.7, delay: index * 0.2 }}
-                        style={{ backgroundImage: `url(${promo.bg})` }}
-                    >
-                        <div className="promo-card-overlay"></div>
-                        <div className="promo-card-content">
-                            <h2>{promo.title}</h2>
-                            <p>{promo.description}</p>
-                            <button className="promo-card-button">Получить консультацию</button>
-                        </div>
-                    </motion.div>
-                ))}
-            </div>
+                <p>Самые выгодные предложения для покупки вашей новой квартиры.</p>
+            </header>
+
+            {loading ? (
+                <div className="status-info">Загрузка акций...</div>
+            ) : promotions.length === 0 ? (
+                <div className="status-info">Действующих акций не найдено.</div>
+            ) : (
+                <motion.div
+                    className="promotions-grid"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                >
+                    {promotions.map((promo) => (
+                        <motion.div className="promo-card-new" key={promo.id} variants={itemVariants}>
+                            <div className="promo-card-image" style={{ backgroundImage: `url(${promo.bg})` }}>
+                                {promo.expires_on && <div className="promo-card-expiry">до {promo.expires_on}</div>}
+                            </div>
+                            <div className="promo-card-content-new">
+                                <h3>{promo.title}</h3>
+                                <p>{promo.description}</p>
+                                <Link to={`/promotions/${promo.id}`} className="promo-card-cta">
+                                    Узнать подробнее
+                                </Link>
+                            </div>
+                        </motion.div>
+                    ))}
+                </motion.div>
+            )}
         </div>
     );
 };

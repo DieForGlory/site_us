@@ -1,3 +1,4 @@
+// frontend/src/components/Cta/Cta.jsx
 import React from 'react';
 import { motion } from 'framer-motion';
 import './Cta.css';

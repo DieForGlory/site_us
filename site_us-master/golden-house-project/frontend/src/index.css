@@ -1,9 +1,16 @@
-/* Сброс стилей и базовые настройки */
+/* frontend/src/index.css */
 :root {
   --font-main: 'Manrope', sans-serif;
   --color-text: #222222;
   --color-background: #fdfdfd;
-  --color-golden: #c9a575; /* Фирменный золотой */
+  --color-golden: #c9a575;
+  --color-dark-bg: #1a1a1a; /* <-- Новый цвет для темных секций */
+  --color-light-bg: #f8f8f8; /* <-- Новый цвет для светлых секций */
+}
+
+/* Добавляем плавный скролл для якорей */
+html {
+  scroll-behavior: smooth;
 }
 
 * {
