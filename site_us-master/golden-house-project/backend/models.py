@@ -19,6 +19,8 @@ class Project(db.Model):
 
     @property
     def gallery(self):
+        if self._gallery is None:
+            return []
         return json.loads(self._gallery)
 
     @gallery.setter

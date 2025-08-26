@@ -79,3 +79,12 @@
         min-width: auto;
     }
 }
+.stats-dynamic-section {
+    padding: 120px 40px;
+    /* Старый фон: background-color: #111; */
+    background-color: #1a1a1a; /* Используем основной темный цвет */
+    background-image: url('/path/to/your/subtle-pattern.png');
+    background-repeat: repeat;
+    color: #fff;
+    overflow: hidden;
+}

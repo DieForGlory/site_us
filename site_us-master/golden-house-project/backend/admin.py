@@ -4,7 +4,7 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from werkzeug.utils import secure_filename
 import os
-
+from wtforms.fields import FileField, BooleanField
 # Импортируем только то, что нам точно нужно
 from wtforms.fields import FileField
 
@@ -36,40 +36,41 @@ class ProjectAdminView(ModelView):
         """
         # Сначала получаем стандартную форму, сгенерированную из модели
         form_class = super(ProjectAdminView, self).scaffold_form()
-
-        # Теперь добавляем наши поля для загрузки файлов
         form_class.main_image_url = FileField('Main Image')
-        form_class.gallery_image_1 = FileField('Gallery Image 1')
-        form_class.gallery_image_2 = FileField('Gallery Image 2')
-        form_class.gallery_image_3 = FileField('Gallery Image 3')
-        form_class.gallery_image_4 = FileField('Gallery Image 4')
-        form_class.gallery_image_5 = FileField('Gallery Image 5')
-        form_class.gallery_image_6 = FileField('Gallery Image 6')
+        for i in range(1, 7):
+            setattr(form_class, f'gallery_image_{i}', FileField(f'Gallery Image {i}'))
+            setattr(form_class, f'gallery_image_{i}_delete', BooleanField('Delete'))
 
         return form_class
 
     def on_model_change(self, form, model, is_created):
-        """Обрабатывает загрузку всех изображений."""
-        # Обработка главного изображения
+        """Обрабатывает загрузку и удаление изображений галереи."""
         if form.main_image_url.data:
             model.main_image_url = _save_file(form.main_image_url.data)
 
-        # Новая логика для галереи
-        current_gallery = model.gallery or []
-        gallery_slots = (current_gallery + [None] * 6)[:6]
+        current_gallery = list(model.gallery or [])
+        new_gallery = []
 
-        # Проверяем каждое из 6 полей
         for i in range(6):
-            field_name = f'gallery_image_{i + 1}'
-            # Получаем данные из поля формы
-            field_data = getattr(form, field_name).data
-            if field_data:
+            # Получаем данные из полей формы
+            field_data = getattr(form, f'gallery_image_{i + 1}').data
+            delete_checked = getattr(form, f'gallery_image_{i + 1}_delete').data
+
+            # Определяем, какое изображение было на этой позиции раньше
+            old_image = current_gallery[i] if i < len(current_gallery) else None
+
+            # 1. Если загружен новый файл, он имеет высший приоритет
+            if field_data and field_data.filename:
                 filename = _save_file(field_data)
                 if filename:
-                    gallery_slots[i] = filename
+                    new_gallery.append(filename)
+            # 2. Если новый файл не загружен и не стоит галочка "Удалить"
+            elif not delete_checked and old_image:
+                new_gallery.append(old_image)
+            # 3. Если стоит галочка "Удалить" или нет ни старого, ни нового файла,
+            # то слот остается пустым и в new_gallery ничего не добавляется.
 
-        # Сохраняем результат
-        model.gallery = [img for img in gallery_slots if img]
+        model.gallery = new_gallery
 
 
 # --- Остальные классы остаются без изменений ---
