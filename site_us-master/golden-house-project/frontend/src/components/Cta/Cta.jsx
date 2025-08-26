@@ -1,11 +1,10 @@
 // frontend/src/components/Cta/Cta.jsx
 import React from 'react';
 import { motion } from 'framer-motion';
-import './Cta.css';
+import './Cta.css'; // <-- ИСПРАВЛЕНИЕ ЗДЕСЬ
 
 const Cta = () => {
   return (
-    // Добавляем id="contacts" для якоря
     <section id="contacts" className="cta-section-reimagined">
       <div className="cta-container-reimagined">
         <motion.div

@@ -1,63 +1,47 @@
+/* frontend/src/components/Cta/Cta.css */
 .cta-section-reimagined {
-    padding: 80px 20px;
-    background-color: #f8f8f8;
+    padding: 100px 20px;
+    background: linear-gradient(to right, #1e1e1e, #2b2b2b);
+    color: #fff;
 }
-
 .cta-container-reimagined {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 80px;
     align-items: center;
 }
-
 .cta-info-side h2 {
-    font-size: 2.8rem;
+    font-size: 3rem;
     font-weight: 800;
     margin-bottom: 20px;
-    color: #222;
 }
-
 .cta-info-side p {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #555;
+    color: #ccc;
     margin-bottom: 30px;
 }
-
-.contact-details p {
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-bottom: 10px;
-}
+.contact-details p { font-size: 1rem; line-height: 1.7; margin-bottom: 10px; }
+.contact-details strong { color: var(--color-golden); }
 
 .cta-form-side {
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.05);
     padding: 40px;
     border-radius: 16px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
 }
-
-.form-group {
-    margin-bottom: 25px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: #333;
-}
-
+.form-group label { display: block; font-weight: 700; margin-bottom: 8px; color: #eee; }
 .form-group input {
     width: 100%;
     padding: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #555;
     border-radius: 8px;
     font-size: 1rem;
+    background-color: #333;
+    color: #fff;
 }
-
 .cta-form-reimagined button {
     width: 100%;
     padding: 16px;
@@ -70,11 +54,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
 }
-
-.cta-form-reimagined button:hover {
-    background-color: #b38e5c;
-    transform: translateY(-3px);
-}
+.cta-form-reimagined button:hover { background-color: #fff; color: #111; }
 
 @media (max-width: 900px) {
     .cta-container-reimagined {

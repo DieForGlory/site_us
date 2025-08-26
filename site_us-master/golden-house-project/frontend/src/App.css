@@ -4,7 +4,10 @@
   margin: 0 auto;
   padding: 40px 20px;
 }
-
+main {
+  position: relative; /* Это исправит ошибку в консоли */
+  /* display: block; можно убрать, если уже есть */
+}
 /* Стили заголовка */
 .app-header {
   text-align: center;

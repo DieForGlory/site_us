@@ -1,82 +1,95 @@
-.news-section {
-    padding: 80px 20px;
-    background-color: #fff; /* Возвращаем белый фон */
+/* frontend/src/components/News/News.css */
+.news-section-redesigned {
+    padding: 100px 20px;
+    background-color: #fff;
 }
 
-.news-container {
+.news-container-redesigned {
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.news-section .section-header {
-    text-align: center; /* Возвращаем центрирование */
-    margin-bottom: 50px;
+.news-section-redesigned .section-header {
+    text-align: center;
+    margin-bottom: 60px;
 }
 
-.news-section .section-header h2 {
-    font-size: 2.5rem;
+.news-section-redesigned .section-header h2 {
+    font-size: 3rem;
     font-weight: 800;
-    margin-bottom: 10px;
-    color: #222;
+    margin-bottom: 15px;
 }
-
-.news-section .section-header p {
-    font-size: 1.125rem;
+.news-section-redesigned .section-header p {
+    font-size: 1.2rem;
     color: #666;
 }
 
-.news-grid {
+/* --- Новая сетка --- */
+.news-grid-redesigned {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
     gap: 30px;
 }
 
-.news-card {
-    background-color: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    /* Убираем тень по умолчанию, добавляем легкую рамку */
-    border: 1px solid #e0e0e0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
+/* --- Главная новость (слева) --- */
+.news-card-featured {
+    grid-row: 1 / 3; /* Занимает 2 ряда в высоту */
 }
 
-.news-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08); /* Тень появляется при наведении */
+/* --- Второстепенные новости (справа) --- */
+.news-grid-secondary {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+
+/* --- Общие стили для всех карточек --- */
+.news-card-featured, .news-card-secondary {
+    background-color: #fff;
+    border-radius: 16px;
+    text-decoration: none;
+    display: block;
+    color: #222;
+}
+
+.news-card-image-wrapper {
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 20px;
 }
 
 .news-card-image {
-    height: 220px;
+    width: 100%;
+    padding-bottom: 65%; /* Соотношение сторон */
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.news-card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.news-card-featured:hover .news-card-image,
+.news-card-secondary:hover .news-card-image {
+    transform: scale(1.05);
 }
 
 .news-card-content {
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    padding: 0 10px 10px 10px;
 }
-
 .news-card-date {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 700;
     color: #888;
     margin-bottom: 10px;
 }
-
 .news-card-content h3 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 800;
+    line-height: 1.4;
     margin-bottom: 15px;
-    flex-grow: 1;
-    color: #222;
+}
+.news-card-featured .news-card-content h3 {
+    font-size: 2rem; /* Увеличим заголовок для главной новости */
 }
 
 .news-card-content p {
@@ -92,7 +105,17 @@
     font-weight: 700;
     transition: color 0.3s ease;
 }
-
 .news-card-link:hover {
-    color: #b38e5c;
+    color: #111;
+}
+.news-card-link::after {
+    content: ' →';
+}
+
+
+/* --- АДАПТИВНОСТЬ --- */
+@media (max-width: 900px) {
+    .news-grid-redesigned {
+        grid-template-columns: 1fr; /* Одна колонка */
+    }
 }

@@ -1,66 +1,81 @@
 /* frontend/src/components/CompanyStats/CompanyStats.css */
-.stats-section-reimagined {
-    padding: 100px 20px;
-    background-color: var(--color-dark-bg); /* Используем новую переменную */
+.stats-dynamic-section {
+    padding: 120px 40px;
+    background-color: #111; /* Глубокий темный фон */
     color: #fff;
-    /* Добавляем фоновое изображение с эффектом параллакса */
-    background-image: linear-gradient(rgba(26,26,26,0.9), rgba(26,26,26,0.9)), url('https://images.unsplash.com/photo-1542361345-89e58247f2d5?q=80&w=1974');
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
+    overflow: hidden;
 }
 
-.stats-container-reimagined {
+.stats-dynamic-container {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1.5fr; /* Левая колонка уже, правая шире */
     align-items: center;
-    gap: 60px;
+    gap: 80px;
 }
 
-.stats-intro-text h2 {
-    font-size: 3rem;
+/* --- Левая часть с заголовком --- */
+.stats-intro h2 {
+    font-size: 3.5rem;
     font-weight: 800;
-    line-height: 1.3;
+    line-height: 1.2;
+    margin-bottom: 20px;
 }
 
-.stats-grid-reimagined {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-    border-left: 2px solid var(--color-golden);
-    padding-left: 50px;
+.stats-intro p {
+    font-size: 1.1rem;
+    color: #aaa;
+    line-height: 1.7;
+    max-width: 350px;
 }
 
-.stat-item-reimagined .stat-number {
+/* --- Правая часть со статистикой --- */
+.stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.stat-item-dynamic {
+    display: flex;
+    align-items: baseline; /* Выравнивание по базовой линии текста */
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-number-dynamic {
     font-size: 5rem;
     font-weight: 800;
     color: var(--color-golden);
-    line-height: 1.1;
-    display: block;
+    line-height: 1;
+    min-width: 200px; /* Фиксированная минимальная ширина для выравнивания */
+    text-align: right;
 }
 
-.stat-item-reimagined .stat-text {
+.stat-text-dynamic {
     font-size: 1.2rem;
-    color: #aaa;
-    margin-top: 10px;
+    color: #ccc;
 }
 
+/* --- Адаптивность --- */
 @media (max-width: 900px) {
-    .stats-container-reimagined {
-        grid-template-columns: 1fr;
+    .stats-dynamic-container {
+        grid-template-columns: 1fr; /* Одна колонка */
+        gap: 60px;
         text-align: center;
     }
-    .stats-grid-reimagined {
-        border-left: none;
-        padding-left: 0;
-        margin-top: 40px;
+    .stats-intro p {
+        margin: 0 auto;
     }
-}
-
-@media (max-width: 500px) {
-    .stats-grid-reimagined {
-        grid-template-columns: 1fr;
+    .stat-item-dynamic {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .stat-number-dynamic {
+        text-align: center;
+        min-width: auto;
     }
 }
