@@ -158,83 +158,160 @@ const SingleProjectPage = () => {
 
         {/* Overview Section */}
         {activeTab === 'overview' && (
-        <motion.div 
-          className="project-detail"
-          ref={overviewRef}
-          initial={{ opacity: 0, y: 20 }}
-          animate={overviewInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="project-gallery">
-            {project.images && project.images.length > 0 && (
-              <div className="gallery-container">
-                <img 
-                  src={project.images[currentImageIndex]} 
-                  alt={project.title}
-                  className="main-image"
-                />
-                {project.images.length > 1 && (
-                  <>
-                    <button className="gallery-btn prev" onClick={prevImage}>‹</button>
-                    <button className="gallery-btn next" onClick={nextImage}>›</button>
-                    <div className="gallery-dots">
-                      {project.images.map((_, index) => (
-                        <button
-                          key={index}
-                          className={`dot ${index === currentImageIndex ? 'active' : ''}`}
-                          onClick={() => setCurrentImageIndex(index)}
-                        />
-                      ))}
-                    </div>
-                  </>
+          <motion.div 
+            className="overview-section"
+            ref={overviewRef}
+            initial={{ opacity: 0, y: 20 }}
+            animate={overviewInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6 }}
+          >
+            {/* Hero Section */}
+            <div className="project-hero">
+              <div className="project-gallery">
+                {project.images && project.images.length > 0 && (
+                  <div className="gallery-container">
+                    <img 
+                      src={project.images[currentImageIndex]} 
+                      alt={project.title}
+                      className="main-image"
+                    />
+                    {project.images.length > 1 && (
+                      <>
+                        <button className="gallery-btn prev" onClick={prevImage}>‹</button>
+                        <button className="gallery-btn next" onClick={nextImage}>›</button>
+                        <div className="gallery-dots">
+                          {project.images.map((_, index) => (
+                            <button
+                              key={index}
+                              className={`dot ${index === currentImageIndex ? 'active' : ''}`}
+                              onClick={() => setCurrentImageIndex(index)}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
                 )}
               </div>
-            )}
-          </div>
 
-          <div className="project-info">
-            <h1>{project.title}</h1>
-            <p className="project-description">{project.description}</p>
-            
-            <div className="project-details">
-              <div className="detail-item">
-                <strong>Цена от:</strong> ${project.price_from?.toLocaleString()}
-              </div>
-              <div className="detail-item">
-                <strong>Локация:</strong> {project.location}
-              </div>
-              <div className="detail-item">
-                <strong>Статус:</strong> 
-                <span className={`status ${project.status?.toLowerCase().replace(' ', '-')}`}>
-                  {project.status}
-                </span>
-              </div>
-              <div className="detail-item">
-                <strong>Срок сдачи:</strong> {new Date(project.completion_date).toLocaleDateString('ru-RU')}
+              <div className="project-hero-info">
+                <div className="project-header">
+                  <div className="project-title-section">
+                    <h1>{project.title}</h1>
+                    <div className="project-badges">
+                      <span className={`status-badge ${project.status?.toLowerCase().replace(' ', '-')}`}>
+                        {project.status}
+                      </span>
+                      <span className="class-badge">
+                        {project.housing_class}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="project-price-section">
+                    <div className="price-label">Цена от</div>
+                    <div className="price-value">${project.price_from?.toLocaleString()}</div>
+                  </div>
+                </div>
+
+                <p className="project-description">{project.description}</p>
+
+                <div className="project-quick-info">
+                  <div className="quick-info-item">
+                    <div className="info-icon">📍</div>
+                    <div className="info-content">
+                      <div className="info-label">Локация</div>
+                      <div className="info-value">{project.location}</div>
+                    </div>
+                  </div>
+                  <div className="quick-info-item">
+                    <div className="info-icon">📅</div>
+                    <div className="info-content">
+                      <div className="info-label">Срок сдачи</div>
+                      <div className="info-value">{new Date(project.completion_date).toLocaleDateString('ru-RU')}</div>
+                    </div>
+                  </div>
+                  <div className="quick-info-item">
+                    <div className="info-icon">🏠</div>
+                    <div className="info-content">
+                      <div className="info-label">Класс жилья</div>
+                      <div className="info-value">{project.housing_class}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="project-actions">
+                  <button className="btn btn-primary">
+                    <span>📞</span>
+                    Записаться на просмотр
+                  </button>
+                  <button className="btn btn-secondary">
+                    <span>💬</span>
+                    Получить консультацию
+                  </button>
+                </div>
               </div>
             </div>
 
+            {/* Features Section */}
             {project.features && project.features.length > 0 && (
-              <div className="project-features">
-                <h3>Особенности:</h3>
-                <ul>
+              <div className="project-features-section">
+                <h2>Особенности проекта</h2>
+                <div className="features-grid">
                   {project.features.map((feature, index) => (
-                    <li key={index}>{feature}</li>
+                    <div key={index} className="feature-card">
+                      <div className="feature-icon">✨</div>
+                      <div className="feature-text">{feature}</div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             )}
 
-            <div className="project-content">
-              <p>{project.detailed_description}</p>
+            {/* Detailed Description */}
+            <div className="project-description-section">
+              <h2>О проекте</h2>
+              <div className="description-content">
+                <p>{project.detailed_description}</p>
+                <div className="description-highlights">
+                  <div className="highlight-item">
+                    <h4>Архитектура</h4>
+                    <p>Современный архитектурный стиль с использованием качественных материалов и инновационных решений.</p>
+                  </div>
+                  <div className="highlight-item">
+                    <h4>Инфраструктура</h4>
+                    <p>Развитая инфраструктура района с удобной транспортной доступностью и всеми необходимыми объектами.</p>
+                  </div>
+                  <div className="highlight-item">
+                    <h4>Комфорт</h4>
+                    <p>Продуманные планировки, качественная отделка и современные инженерные системы для максимального комфорта.</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="project-actions">
-              <button className="btn btn-primary">Записаться на просмотр</button>
-              <button className="btn btn-secondary">Получить консультацию</button>
+            {/* Call to Action */}
+            <div className="project-cta-section">
+              <div className="cta-content">
+                <h3>Заинтересовались проектом?</h3>
+                <p>Получите персональную консультацию и узнайте о специальных предложениях</p>
+                <div className="cta-actions">
+                  <button className="btn btn-primary large">
+                    Получить консультацию
+                  </button>
+                  <div className="contact-info">
+                    <div className="contact-item">
+                      <span>📞</span>
+                      <span>+7 (123) 456-78-90</span>
+                    </div>
+                    <div className="contact-item">
+                      <span>📧</span>
+                      <span>info@goldenhouse.uz</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
         )}
 
         {/* Layouts Section */}
