@@ -175,7 +175,15 @@ const Projects = () => {
 
   if (loading) {
     return (
-      <section className="projects-section">
+      <section className="projects-section-3d" ref={containerElement}>
+        <motion.div 
+          className="background-elements"
+          style={{ y, opacity }}
+        >
+          <div className="floating-shape shape-1"></div>
+          <div className="floating-shape shape-2"></div>
+          <div className="floating-shape shape-3"></div>
+        </motion.div>
         <div className="container">
           <div className="loading-animation">
             <motion.div
