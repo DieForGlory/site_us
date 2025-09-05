@@ -111,7 +111,7 @@ const Projects = () => {
   }, [projects.length, activeIndex]);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:5010/api/projects')
+    axios.get('/api/projects')
       .then(res => setProjects(res.data))
       .catch(err => console.error("Ошибка:", err));
   }, []);

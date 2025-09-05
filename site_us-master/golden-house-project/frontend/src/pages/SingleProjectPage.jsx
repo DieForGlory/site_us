@@ -18,7 +18,7 @@ const SingleProjectPage = () => {
     useEffect(() => {
         const fetchProject = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:5010/api/projects/${id}`);
+                const response = await axios.get(`/api/projects/${id}`);
                 setProject(response.data);
             } catch (error) {
                 console.error("Ошибка при загрузке проекта:", error);

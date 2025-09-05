@@ -12,7 +12,7 @@ const SinglePromotionPage = () => {
     useEffect(() => {
         const fetchPromotion = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:5010/api/promotions/${id}`);
+                const response = await axios.get(`/api/promotions/${id}`);
                 setPromotion(response.data);
             } catch (error) {
                 console.error("Ошибка при загрузке акции:", error);
