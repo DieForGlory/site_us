@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Projects from '../components/Projects/Projects';
-import { news } from '../data/mockData';
+import { news, promotions } from '../data/mockData';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -30,6 +30,55 @@ const HomePage = () => {
       {/* Projects Section */}
       <Projects />
 
+      {/* Promotions Section */}
+      <section className="promotions-section">
+        <div className="container">
+          <motion.div 
+            className="section-header"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2>Акции и скидки</h2>
+            <p>Выгодные предложения для покупки недвижимости</p>
+          </motion.div>
+
+          <div className="promotions-grid">
+            {promotions.slice(0, 3).map((promotion, index) => (
+              <motion.div
+                key={promotion.id}
+                className="promotion-card"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="promotion-image">
+                  <img src={promotion.bg} alt={promotion.title} />
+                  <div className="promotion-badge">
+                    <span>До {promotion.expires_on}</span>
+                  </div>
+                </div>
+                <div className="promotion-content">
+                  <h3>{promotion.title}</h3>
+                  <p>{promotion.description}</p>
+                  <Link to={`/promotions/${promotion.id}`} className="btn btn-primary">
+                    Подробнее
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="promotions-footer">
+            <Link to="/promotions" className="btn btn-secondary">
+              Все акции
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* News Section */}
       <section className="news-section">
         <div className="container">
@@ -53,16 +102,26 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5 }}
               >
                 <img src={item.image} alt={item.title} />
                 <div className="news-content">
                   <h3>{item.title}</h3>
                   <p>{item.content}</p>
-                  <span className="news-date">{new Date(item.date).toLocaleDateString('ru-RU')}</span>
+                  <div className="news-footer">
+                    <span className="news-date">{new Date(item.date).toLocaleDateString('ru-RU')}</span>
+                    <Link to={`/news/${item.id}`} className="news-link">
+                      Читать далее →
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          <div className="news-section-footer">
+            <Link to="/news" className="btn btn-secondary">
+              Все новости
+            </Link>
           </div>
         </div>
       </section>
