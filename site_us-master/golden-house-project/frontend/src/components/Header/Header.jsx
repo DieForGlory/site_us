@@ -12,6 +12,7 @@ const navItemVariants = {
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   // 2. Получаем информацию о текущем маршруте
   const location = useLocation();
 
@@ -22,6 +23,14 @@ const Header = () => {
     setScrolled(window.scrollY > 50);
   };
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -29,36 +38,61 @@ const Header = () => {
     };
   }, []);
 
+  // Закрываем мобильное меню при смене маршрута
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location]);
+
   // 4. Собираем классы для хедера:
   // - 'scrolled' добавляется при прокрутке
   // - 'light-theme' добавляется СРАЗУ, если это НЕ главная страница
   const headerClasses = `site-header ${scrolled ? 'scrolled' : ''} ${!isHomePage ? 'light-theme' : ''}`;
 
   return (
-    <header className={headerClasses}>
-      <div className="header-container">
-        <Link to="/" className="logo">
-          Golden House
-        </Link>
-        <nav className="main-nav">
-          <motion.div variants={navItemVariants} whileHover="hover" whileTap="tap">
-            <Link to="/#projects">Проекты</Link>
-          </motion.div>
-          <motion.div variants={navItemVariants} whileHover="hover" whileTap="tap">
-            <Link to="/promotions">Акции</Link>
-          </motion.div>
-          <motion.div variants={navItemVariants} whileHover="hover" whileTap="tap">
-            <Link to="/vacancies">Вакансии</Link>
-          </motion.div>
-          <motion.div variants={navItemVariants} whileHover="hover" whileTap="tap">
-            <Link to="/service">Клиентский сервис</Link>
-          </motion.div>
+    <>
+      <header className={headerClasses}>
+        <div className="header-container">
+          <Link to="/" className="logo">
+            Golden House
+          </Link>
+          <nav className="main-nav">
+            <motion.div variants={navItemVariants} whileHover="hover" whileTap="tap">
+              <Link to="/#projects">Проекты</Link>
+            </motion.div>
+            <motion.div variants={navItemVariants} whileHover="hover" whileTap="tap">
+              <Link to="/promotions">Акции</Link>
+            </motion.div>
+            <motion.div variants={navItemVariants} whileHover="hover" whileTap="tap">
+              <Link to="/vacancies">Вакансии</Link>
+            </motion.div>
+            <motion.div variants={navItemVariants} whileHover="hover" whileTap="tap">
+              <Link to="/service">Клиентский сервис</Link>
+            </motion.div>
+          </nav>
+          <Link to="/#contacts" className="header-cta-button">
+            Связаться
+          </Link>
+          <div className="mobile-menu-toggle" onClick={toggleMobileMenu}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </header>
+      
+      {/* Мобильное меню */}
+      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
+        <nav>
+          <Link to="/#projects" onClick={closeMobileMenu}>Проекты</Link>
+          <Link to="/promotions" onClick={closeMobileMenu}>Акции</Link>
+          <Link to="/vacancies" onClick={closeMobileMenu}>Вакансии</Link>
+          <Link to="/service" onClick={closeMobileMenu}>Клиентский сервис</Link>
+          <Link to="/#contacts" onClick={closeMobileMenu} className="btn btn-primary" style={{marginTop: '20px', textAlign: 'center'}}>
+            Связаться
+          </Link>
         </nav>
-        <Link to="/#contacts" className="header-cta-button">
-          Связаться
-        </Link>
       </div>
-    </header>
+    </>
   );
 };
 

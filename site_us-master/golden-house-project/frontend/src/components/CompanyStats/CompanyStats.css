@@ -1,33 +1,47 @@
 /* frontend/src/components/CompanyStats/CompanyStats.css */
 .stats-dynamic-section {
-    padding: 120px 40px;
-    background-color: #111; /* Глубокий темный фон */
+    padding: var(--section-padding) 40px;
+    background-color: var(--color-dark-bg);
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(201, 165, 117, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(201, 165, 117, 0.05) 0%, transparent 50%);
     color: #fff;
     overflow: hidden;
 }
 
 .stats-dynamic-container {
-    max-width: 1200px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1.5fr; /* Левая колонка уже, правая шире */
+    grid-template-columns: 1fr 1.5fr;
     align-items: center;
     gap: 80px;
 }
 
 /* --- Левая часть с заголовком --- */
 .stats-intro h2 {
-    font-size: 3.5rem;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 20px;
+    position: relative;
+}
+
+.stats-intro h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-golden);
 }
 
 .stats-intro p {
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 2vw, 1.1rem);
     color: #aaa;
     line-height: 1.7;
-    max-width: 350px;
+    max-width: 400px;
 }
 
 /* --- Правая часть со статистикой --- */
@@ -39,52 +53,90 @@
 
 .stat-item-dynamic {
     display: flex;
-    align-items: baseline; /* Выравнивание по базовой линии текста */
+    align-items: baseline;
     gap: 20px;
     padding: 20px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition-normal);
+}
+
+.stat-item-dynamic:hover {
+    padding-left: 10px;
+    border-bottom-color: var(--color-golden);
 }
 
 .stat-number-dynamic {
-    font-size: 5rem;
+    font-size: clamp(3rem, 6vw, 5rem);
     font-weight: 800;
     color: var(--color-golden);
     line-height: 1;
-    min-width: 200px; /* Фиксированная минимальная ширина для выравнивания */
+    min-width: clamp(150px, 20vw, 200px);
     text-align: right;
+    text-shadow: 0 2px 10px rgba(201, 165, 117, 0.3);
 }
 
 .stat-text-dynamic {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2vw, 1.2rem);
     color: #ccc;
+    line-height: 1.4;
 }
 
 /* --- Адаптивность --- */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
     .stats-dynamic-container {
-        grid-template-columns: 1fr; /* Одна колонка */
+        grid-template-columns: 1fr;
         gap: 60px;
         text-align: center;
     }
+    
     .stats-intro p {
         margin: 0 auto;
+        max-width: 600px;
     }
+    
+    .stats-intro h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-dynamic-section {
+        padding: 60px 20px;
+    }
+    
+    .stats-dynamic-container {
+        gap: 40px;
+    }
+    
     .stat-item-dynamic {
         flex-direction: column;
         align-items: center;
         gap: 10px;
+        text-align: center;
+        padding: 25px 0;
     }
+    
     .stat-number-dynamic {
         text-align: center;
         min-width: auto;
     }
+    
+    .stat-item-dynamic:hover {
+        padding-left: 0;
+    }
 }
-.stats-dynamic-section {
-    padding: 120px 40px;
-    /* Старый фон: background-color: #111; */
-    background-color: #1a1a1a; /* Используем основной темный цвет */
-    background-image: url('/path/to/your/subtle-pattern.png');
-    background-repeat: repeat;
-    color: #fff;
-    overflow: hidden;
+
+@media (max-width: 480px) {
+    .stats-dynamic-section {
+        padding: 40px 16px;
+    }
+    
+    .stats-list {
+        gap: 20px;
+    }
+    
+    .stat-item-dynamic {
+        padding: 20px 0;
+    }
 }
