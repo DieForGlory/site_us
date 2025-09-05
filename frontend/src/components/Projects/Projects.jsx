@@ -10,21 +10,15 @@ const Projects = () => {
   const [filter, setFilter] = useState('all');
   const [hoveredProject, setHoveredProject] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [isClient, setIsClient] = useState(false);
   const containerRef = useRef(null);
   
-  // Initialize scroll hooks only after client-side hydration
-  const scrollHooks = isClient ? useScroll({
+  const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
-  }) : { scrollYProgress: { get: () => 0 } };
+  });
 
-  const y = isClient ? useTransform(scrollHooks.scrollYProgress, [0, 1], [100, -100]) : { get: () => 0 };
-  const opacity = isClient ? useTransform(scrollHooks.scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]) : { get: () => 1 };
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -205,7 +199,7 @@ const Projects = () => {
     <section className="projects-section-3d" ref={containerRef}>
       <motion.div 
         className="background-elements"
-        style={{ y: y.get ? y.get() : 0, opacity: opacity.get ? opacity.get() : 1 }}
+        style={{ y, opacity }}
       >
         <div className="floating-shape shape-1"></div>
         <div className="floating-shape shape-2"></div>
