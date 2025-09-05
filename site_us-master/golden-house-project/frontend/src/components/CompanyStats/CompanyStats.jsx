@@ -63,7 +63,6 @@ const CompanyStats = () => {
                     end={stat.number}
                     duration={2.5}
                     suffix={stat.suffix || ''}
-                    enableScrollSpy
                   />
                 )}
               </span>
