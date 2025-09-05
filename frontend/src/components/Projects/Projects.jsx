@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, EffectCoverflow, Autoplay } from 'swiper/modules';
 import { projects } from '../../data/mockData';
 import './Projects.css';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-coverflow';
 
 const Projects = () => {
   const [projectsData, setProjectsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
   const [selectedProject, setSelectedProject] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     setTimeout(() => {
@@ -62,7 +71,7 @@ const Projects = () => {
           viewport={{ once: true }}
         >
           <h2>Наши проекты</h2>
-          <p>Премиальная недвижимость для комфортной жизни</p>
+          <p>Листайте и изучайте наши премиальные проекты</p>
         </motion.div>
 
         <motion.div 
@@ -88,75 +97,115 @@ const Projects = () => {
           ))}
         </motion.div>
 
-        <div className="projects-grid">
-          <AnimatePresence mode="wait">
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                className="project-card"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                onClick={() => setSelectedProject(project)}
-              >
-                <div className="project-image-wrapper">
-                  <img 
-                    src={project.images?.[0]} 
-                    alt={project.title}
-                    className="project-image"
-                  />
-                  <div className="project-overlay">
-                    <motion.button
-                      className="view-btn"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      Подробнее
-                    </motion.button>
-                  </div>
-                  <div className={`status-badge ${project.status?.toLowerCase().replace(' ', '-')}`}>
-                    {project.status}
-                  </div>
-                </div>
-                
-                <div className="project-info">
-                  <h3>{project.title}</h3>
-                  <p className="project-description">{project.description}</p>
-                  
-                  <div className="project-details">
-                    <div className="detail">
-                      <span className="label">Цена от:</span>
-                      <span className="value">${project.price_from?.toLocaleString()}</span>
-                    </div>
-                    <div className="detail">
-                      <span className="label">Локация:</span>
-                      <span className="value">{project.location}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="project-features">
-                    {project.features?.slice(0, 3).map((feature, idx) => (
-                      <span key={idx} className="feature-tag">
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  <Link 
-                    to={`/projects/${project.id}`} 
-                    className="btn btn-primary project-btn"
+        {filteredProjects.length > 0 ? (
+          <div className="projects-carousel">
+            <Swiper
+              modules={[Navigation, Pagination, EffectCoverflow, Autoplay]}
+              effect="coverflow"
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView="auto"
+              coverflowEffect={{
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+              }}
+              pagination={{
+                clickable: true,
+                dynamicBullets: true,
+              }}
+              navigation={true}
+              autoplay={{
+                delay: 4000,
+                disableOnInteraction: false,
+              }}
+              onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+              className="projects-swiper"
+            >
+              {filteredProjects.map((project, index) => (
+                <SwiperSlide key={project.id} className="project-slide">
+                  <motion.div
+                    className="project-card-3d"
+                    whileHover={{ scale: 1.02 }}
+                    onClick={() => setSelectedProject(project)}
                   >
-                    Узнать больше
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+                    <div className="project-image-container">
+                      <img 
+                        src={project.images?.[0]} 
+                        alt={project.title}
+                        className="project-image"
+                      />
+                      <div className="project-overlay">
+                        <motion.button
+                          className="quick-view-btn"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                        >
+                          Быстрый просмотр
+                        </motion.button>
+                      </div>
+                      <div className={`status-badge ${project.status?.toLowerCase().replace(' ', '-')}`}>
+                        {project.status}
+                      </div>
+                    </div>
+                    
+                    <div className="project-info">
+                      <h3>{project.title}</h3>
+                      <p className="project-description">{project.description}</p>
+                      
+                      <div className="project-stats">
+                        <div className="stat">
+                          <span className="stat-value">${project.price_from?.toLocaleString()}</span>
+                          <span className="stat-label">от</span>
+                        </div>
+                        <div className="stat">
+                          <span className="stat-value">{project.location}</span>
+                          <span className="stat-label">локация</span>
+                        </div>
+                      </div>
+                      
+                      <div className="project-features">
+                        {project.features?.slice(0, 3).map((feature, idx) => (
+                          <span key={idx} className="feature-tag">
+                            {feature}
+                          </span>
+                        ))}
+                      </div>
+                      
+                      <Link 
+                        to={`/projects/${project.id}`} 
+                        className="btn btn-primary project-btn"
+                      >
+                        Подробнее
+                      </Link>
+                    </div>
+                  </motion.div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
 
-        {filteredProjects.length === 0 && (
+            {/* Project Counter */}
+            <div className="project-counter">
+              <span className="current">{activeIndex + 1}</span>
+              <span className="separator">/</span>
+              <span className="total">{filteredProjects.length}</span>
+            </div>
+
+            {/* Navigation Hints */}
+            <div className="navigation-hints">
+              <div className="hint">
+                <span className="hint-icon">👆</span>
+                <span className="hint-text">Кликните для быстрого просмотра</span>
+              </div>
+              <div className="hint">
+                <span className="hint-icon">👈👉</span>
+                <span className="hint-text">Листайте проекты</span>
+              </div>
+            </div>
+          </div>
+        ) : (
           <motion.div 
             className="no-projects"
             initial={{ opacity: 0, scale: 0.8 }}
@@ -182,9 +231,9 @@ const Projects = () => {
           >
             <motion.div
               className="modal-content"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
               onClick={(e) => e.stopPropagation()}
             >
               <button 
@@ -196,34 +245,58 @@ const Projects = () => {
               
               <div className="modal-image">
                 <img src={selectedProject.images?.[0]} alt={selectedProject.title} />
+                <div className={`modal-status ${selectedProject.status?.toLowerCase().replace(' ', '-')}`}>
+                  {selectedProject.status}
+                </div>
               </div>
               
               <div className="modal-info">
                 <h3>{selectedProject.title}</h3>
-                <p>{selectedProject.description}</p>
+                <p className="modal-description">{selectedProject.description}</p>
                 
                 <div className="modal-stats">
-                  <div className="stat">
-                    <span className="stat-label">Цена от</span>
-                    <span className="stat-value">${selectedProject.price_from?.toLocaleString()}</span>
+                  <div className="modal-stat">
+                    <span className="modal-stat-label">Цена от</span>
+                    <span className="modal-stat-value">${selectedProject.price_from?.toLocaleString()}</span>
                   </div>
-                  <div className="stat">
-                    <span className="stat-label">Статус</span>
-                    <span className="stat-value">{selectedProject.status}</span>
+                  <div className="modal-stat">
+                    <span className="modal-stat-label">Локация</span>
+                    <span className="modal-stat-value">{selectedProject.location}</span>
                   </div>
-                  <div className="stat">
-                    <span className="stat-label">Локация</span>
-                    <span className="stat-value">{selectedProject.location}</span>
+                  <div className="modal-stat">
+                    <span className="modal-stat-label">Срок сдачи</span>
+                    <span className="modal-stat-value">
+                      {new Date(selectedProject.completion_date).toLocaleDateString('ru-RU')}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="modal-features">
+                  <h4>Особенности:</h4>
+                  <div className="modal-features-list">
+                    {selectedProject.features?.map((feature, idx) => (
+                      <span key={idx} className="modal-feature-tag">
+                        {feature}
+                      </span>
+                    ))}
                   </div>
                 </div>
                 
-                <Link 
-                  to={`/projects/${selectedProject.id}`}
-                  className="btn btn-primary modal-btn"
-                  onClick={() => setSelectedProject(null)}
-                >
-                  Подробная информация
-                </Link>
+                <div className="modal-actions">
+                  <Link 
+                    to={`/projects/${selectedProject.id}`}
+                    className="btn btn-primary modal-btn"
+                    onClick={() => setSelectedProject(null)}
+                  >
+                    Полная информация
+                  </Link>
+                  <button 
+                    className="btn btn-secondary modal-btn"
+                    onClick={() => setSelectedProject(null)}
+                  >
+                    Закрыть
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>
