@@ -28,3 +28,5 @@
 +        }
 +        setLoading(false);
      }, [id]);
+
+export default ProjectSidebar
