@@ -13,13 +13,13 @@ const Projects = () => {
   const [isClient, setIsClient] = useState(false);
   const containerRef = useRef(null);
   
-  const { scrollYProgress } = isClient ? useScroll({
+  const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
-  }) : { scrollYProgress: { get: () => 0 } };
+  });
 
-  const y = isClient ? useTransform(scrollYProgress, [0, 1], [100, -100]) : { get: () => 0 };
-  const opacity = isClient ? useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]) : { get: () => 1 };
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   useEffect(() => {
     setIsClient(true);
@@ -204,7 +204,7 @@ const Projects = () => {
     <section className="projects-section-3d" ref={containerRef}>
       <motion.div 
         className="background-elements"
-        style={{ y, opacity }}
+        style={isClient ? { y, opacity } : { y: 0, opacity: 1 }}
       >
         <div className="floating-shape shape-1"></div>
         <div className="floating-shape shape-2"></div>
