@@ -100,7 +100,7 @@ const Projects = () => {
         {filteredProjects.length > 0 ? (
           <div className="projects-carousel">
             <Swiper
-              modules={[Pagination, EffectCoverflow, Autoplay, Mousewheel]}
+              modules={[Pagination, EffectCoverflow, Mousewheel]}
               effect="coverflow"
               grabCursor={true}
               centeredSlides={true}
