@@ -93,7 +93,7 @@
 
 .projects-swiper {
   padding: 50px 0 80px;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .project-slide {
@@ -113,7 +113,8 @@
 }
 
 .project-card:hover {
-  box-shadow: 0 8px 30px var(--color-shadow-hover);
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px var(--color-shadow-hover);
 }
 
 .project-image-container {
