@@ -311,8 +311,9 @@
 .navigation-hints {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 30px;
   margin-top: 40px;
+  flex-wrap: wrap;
 }
 
 .hint {
@@ -333,43 +334,6 @@
 }
 
 /* Swiper Navigation Customization */
-.projects-swiper .swiper-button-next,
-.projects-swiper .swiper-button-prev {
-  color: var(--color-golden);
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  transition: var(--transition-normal);
-  top: 40%;
-  z-index: 10;
-  border: 2px solid var(--color-golden);
-}
-
-.projects-swiper .swiper-button-next:hover,
-.projects-swiper .swiper-button-prev:hover {
-  background: var(--color-golden);
-  color: white;
-  transform: scale(1.1);
-  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
-}
-
-.projects-swiper .swiper-button-prev {
-  left: -30px;
-}
-
-.projects-swiper .swiper-button-next {
-  right: -30px;
-}
-
-.projects-swiper .swiper-button-next::after,
-.projects-swiper .swiper-button-prev::after {
-  font-size: 24px;
-  font-weight: 900;
-}
-
 .projects-swiper .swiper-pagination-bullet {
   background: var(--color-golden);
   opacity: 0.3;
@@ -664,7 +628,7 @@
   .navigation-hints {
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
   }
 }
 

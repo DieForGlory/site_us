@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, EffectCoverflow, Autoplay } from 'swiper/modules';
+import { Pagination, EffectCoverflow, Autoplay, Mousewheel } from 'swiper/modules';
 import { projects } from '../../data/mockData';
 import './Projects.css';
 
@@ -100,7 +100,7 @@ const Projects = () => {
         {filteredProjects.length > 0 ? (
           <div className="projects-carousel">
             <Swiper
-              modules={[Navigation, Pagination, EffectCoverflow, Autoplay]}
+              modules={[Pagination, EffectCoverflow, Autoplay, Mousewheel]}
               effect="coverflow"
               grabCursor={true}
               centeredSlides={true}
@@ -116,10 +116,15 @@ const Projects = () => {
                 clickable: true,
                 dynamicBullets: true,
               }}
-              navigation={true}
+              mousewheel={{
+                enabled: true,
+                sensitivity: 1,
+                thresholdDelta: 50,
+              }}
               autoplay={{
                 delay: 4000,
                 disableOnInteraction: false,
+                pauseOnMouseEnter: true,
               }}
               onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
               className="projects-swiper"
@@ -196,12 +201,16 @@ const Projects = () => {
             {/* Navigation Hints */}
             <div className="navigation-hints">
               <div className="hint">
-                <span className="hint-icon">👆</span>
-                <span className="hint-text">Кликните для быстрого просмотра</span>
+                <span className="hint-icon">🖱️</span>
+                <span className="hint-text">Скролл для переключения проектов</span>
               </div>
               <div className="hint">
-                <span className="hint-icon">👈👉</span>
-                <span className="hint-text">Листайте проекты</span>
+                <span className="hint-icon">👆</span>
+                <span className="hint-text">Клик для быстрого просмотра</span>
+              </div>
+              <div className="hint">
+                <span className="hint-icon">📱</span>
+                <span className="hint-text">Свайп на мобильных</span>
               </div>
             </div>
           </div>
