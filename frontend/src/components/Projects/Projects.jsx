@@ -175,21 +175,6 @@ const Projects = () => {
               <span className="total">{filteredProjects.length}</span>
             </div>
 
-            {/* Navigation Hints */}
-            <div className="navigation-hints">
-              <div className="hint">
-                <span className="hint-icon">🖱️</span>
-                <span className="hint-text">Скролл для переключения проектов</span>
-              </div>
-              <div className="hint">
-                <span className="hint-icon">👆</span>
-                <span className="hint-text">Клик для быстрого просмотра</span>
-              </div>
-              <div className="hint">
-                <span className="hint-icon">📱</span>
-                <span className="hint-text">Свайп на мобильных</span>
-              </div>
-            </div>
           </div>
         ) : (
           <motion.div 
