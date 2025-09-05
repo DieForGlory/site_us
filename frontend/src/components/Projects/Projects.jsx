@@ -131,11 +131,7 @@ const Projects = () => {
             >
               {filteredProjects.map((project, index) => (
                 <SwiperSlide key={project.id} className="project-slide">
-                  <motion.div
-                    className="project-card"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
+                  <div className="project-card">
                     <div className="project-image-container">
                       <img src={project.images?.[0]} alt={project.title} />
                       <div className="project-overlay">
@@ -167,7 +163,7 @@ const Projects = () => {
                         </Link>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 </SwiperSlide>
               ))}
             </Swiper>

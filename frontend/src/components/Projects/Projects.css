@@ -112,10 +112,6 @@
   flex-direction: column;
 }
 
-.project-card:hover {
-  box-shadow: 0 8px 30px var(--color-shadow-hover);
-}
-
 .project-image-container {
   position: relative;
   height: 250px;
