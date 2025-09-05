@@ -18,25 +18,33 @@ const HomePage = () => {
       id: 1,
       number: 15,
       label: "Завершенных проектов",
-      suffix: "+"
+      suffix: "+",
+      icon: "🏗️",
+      description: "Качественных жилых комплексов сдано в эксплуатацию"
     },
     {
       id: 2,
       number: 2500,
       label: "Довольных клиентов",
-      suffix: "+"
+      suffix: "+",
+      icon: "👥",
+      description: "Семей обрели свой дом мечты с нашей помощью"
     },
     {
       id: 3,
       number: 12,
       label: "Лет на рынке",
-      suffix: ""
+      suffix: "",
+      icon: "⭐",
+      description: "Опыта в сфере недвижимости и строительства"
     },
     {
       id: 4,
       number: 98,
       label: "Процент довольных клиентов",
-      suffix: "%"
+      suffix: "%",
+      icon: "💎",
+      description: "Клиентов рекомендуют нас своим друзьям и знакомым"
     }
   ];
 
@@ -74,8 +82,11 @@ const HomePage = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2>Компания в цифрах</h2>
-            <p>Наши достижения говорят сами за себя</p>
+            <div className="stats-header-content">
+              <span className="stats-badge">Наши достижения</span>
+              <h2>Golden House в цифрах</h2>
+              <p>Более 12 лет мы создаем комфортное жилье и строим доверительные отношения с клиентами</p>
+            </div>
           </motion.div>
 
           <motion.div 
@@ -94,21 +105,45 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                whileHover={{ y: -10, scale: 1.02 }}
               >
-                <div className="stat-number">
-                  {statsInView && (
-                    <CountUp
-                      start={0}
-                      end={stat.number}
-                      duration={2.5}
-                      separator=","
-                    />
-                  )}
-                  <span className="stat-suffix">{stat.suffix}</span>
+                <div className="stat-icon">
+                  {stat.icon}
                 </div>
-                <div className="stat-label">{stat.label}</div>
+                <div className="stat-content">
+                  <div className="stat-number">
+                    {statsInView && (
+                      <CountUp
+                        start={0}
+                        end={stat.number}
+                        duration={2.5}
+                        separator=","
+                      />
+                    )}
+                    <span className="stat-suffix">{stat.suffix}</span>
+                  </div>
+                  <div className="stat-label">{stat.label}</div>
+                  <div className="stat-description">{stat.description}</div>
+                </div>
               </motion.div>
             ))}
+          </motion.div>
+
+          <motion.div 
+            className="stats-footer"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            <div className="stats-cta">
+              <h3>Присоединяйтесь к нашим довольным клиентам</h3>
+              <p>Станьте частью большой семьи Golden House</p>
+              <button className="btn btn-primary stats-btn">
+                <span>🏠</span>
+                Выбрать квартиру
+              </button>
+            </div>
           </motion.div>
         </div>
       </section>
