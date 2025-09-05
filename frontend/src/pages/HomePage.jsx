@@ -1,11 +1,45 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import CountUp from 'react-countup';
+import { useInView } from 'react-intersection-observer';
 import Projects from '../components/Projects/Projects';
 import { news, promotions } from '../data/mockData';
 import './HomePage.css';
 
 const HomePage = () => {
+  const [statsRef, statsInView] = useInView({
+    threshold: 0.3,
+    triggerOnce: true
+  });
+
+  const stats = [
+    {
+      id: 1,
+      number: 15,
+      label: "Завершенных проектов",
+      suffix: "+"
+    },
+    {
+      id: 2,
+      number: 2500,
+      label: "Довольных клиентов",
+      suffix: "+"
+    },
+    {
+      id: 3,
+      number: 12,
+      label: "Лет на рынке",
+      suffix: ""
+    },
+    {
+      id: 4,
+      number: 98,
+      label: "Процент довольных клиентов",
+      suffix: "%"
+    }
+  ];
+
   return (
     <div className="home-page">
       {/* Hero Section */}
@@ -29,6 +63,55 @@ const HomePage = () => {
 
       {/* Projects Section */}
       <Projects />
+
+      {/* Company Statistics */}
+      <section className="stats-section">
+        <div className="container">
+          <motion.div 
+            className="section-header"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2>Компания в цифрах</h2>
+            <p>Наши достижения говорят сами за себя</p>
+          </motion.div>
+
+          <motion.div 
+            className="stats-grid"
+            ref={statsRef}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.id}
+                className="stat-card"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="stat-number">
+                  {statsInView && (
+                    <CountUp
+                      start={0}
+                      end={stat.number}
+                      duration={2.5}
+                      separator=","
+                    />
+                  )}
+                  <span className="stat-suffix">{stat.suffix}</span>
+                </div>
+                <div className="stat-label">{stat.label}</div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
       {/* Promotions Section */}
       <section className="promotions-section">
