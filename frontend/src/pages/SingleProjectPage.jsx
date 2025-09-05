@@ -15,7 +15,7 @@ const SingleProjectPage = () => {
   // Intersection Observer hooks for animations
   const [overviewRef, overviewInView] = useInView({ threshold: 0.1, triggerOnce: true });
   const [layoutsRef, layoutsInView] = useInView({ threshold: 0.1, triggerOnce: true });
-  const [newsRef, newsInView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const [stagesRef, stagesInView] = useInView({ threshold: 0.1, triggerOnce: true });
   const [mapRef, mapInView] = useInView({ threshold: 0.1, triggerOnce: true });
 
   useEffect(() => {
@@ -67,24 +67,48 @@ const SingleProjectPage = () => {
     }
   ];
 
-  const projectNews = [
+  const constructionStages = [
     {
       id: 1,
-      title: "Начало строительства фундамента",
-      date: "15.01.2024",
-      content: "Успешно завершены подготовительные работы и начато строительство фундамента комплекса."
+      title: "Подготовительные работы",
+      date: "Январь 2024",
+      status: "completed",
+      content: "Получение разрешений, подготовка территории, геодезические работы"
     },
     {
       id: 2,
-      title: "Получено разрешение на строительство",
-      date: "10.01.2024", 
-      content: "Получены все необходимые разрешения и документы для начала строительных работ."
+      title: "Фундамент и подземная часть",
+      date: "Февраль - Апрель 2024",
+      status: "completed",
+      content: "Устройство фундамента, подземного паркинга и инженерных коммуникаций"
     },
     {
       id: 3,
-      title: "Презентация проекта",
-      date: "05.01.2024",
-      content: "Состоялась официальная презентация архитектурного проекта для инвесторов и СМИ."
+      title: "Возведение каркаса",
+      date: "Май - Сентябрь 2024",
+      status: "in-progress",
+      content: "Строительство несущих конструкций, монолитных работ до 15 этажа"
+    },
+    {
+      id: 4,
+      title: "Фасадные работы",
+      date: "Октябрь 2024 - Март 2025",
+      status: "planned",
+      content: "Утепление фасада, облицовка, установка окон и витражей"
+    },
+    {
+      id: 5,
+      title: "Внутренние работы",
+      date: "Апрель - Август 2025",
+      status: "planned",
+      content: "Инженерные системы, отделочные работы, благоустройство территории"
+    },
+    {
+      id: 6,
+      title: "Сдача объекта",
+      date: "Сентябрь 2025",
+      status: "planned",
+      content: "Получение разрешения на ввод в эксплуатацию, передача ключей"
     }
   ];
 
@@ -119,10 +143,10 @@ const SingleProjectPage = () => {
             Планировки
           </button>
           <button 
-            className={`tab-btn ${activeTab === 'news' ? 'active' : ''}`}
-            onClick={() => setActiveTab('news')}
+            className={`tab-btn ${activeTab === 'stages' ? 'active' : ''}`}
+            onClick={() => setActiveTab('stages')}
           >
-            Новости ЖК
+            Этапы строительства
           </button>
           <button 
             className={`tab-btn ${activeTab === 'map' ? 'active' : ''}`}
@@ -247,29 +271,43 @@ const SingleProjectPage = () => {
           </motion.div>
         )}
 
-        {/* News Section */}
-        {activeTab === 'news' && (
+        {/* Construction Stages Section */}
+        {activeTab === 'stages' && (
           <motion.div 
-            className="project-news-section"
-            ref={newsRef}
+            className="construction-stages-section"
+            ref={stagesRef}
             initial={{ opacity: 0, y: 20 }}
-            animate={newsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            animate={stagesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6 }}
           >
-            <h2>Новости жилого комплекса</h2>
-            <div className="news-timeline">
-              {projectNews.map((news, index) => (
+            <h2>Этапы строительства</h2>
+            <div className="stages-timeline">
+              {constructionStages.map((stage, index) => (
                 <motion.div
-                  key={news.id}
-                  className="news-item"
+                  key={stage.id}
+                  className={`stage-item ${stage.status}`}
                   initial={{ opacity: 0, x: -30 }}
-                  animate={newsInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+                  animate={stagesInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <div className="news-date">{news.date}</div>
-                  <div className="news-content">
-                    <h3>{news.title}</h3>
-                    <p>{news.content}</p>
+                  <div className="stage-marker">
+                    <div className={`stage-icon ${stage.status}`}>
+                      {stage.status === 'completed' && '✓'}
+                      {stage.status === 'in-progress' && '⚡'}
+                      {stage.status === 'planned' && '○'}
+                    </div>
+                  </div>
+                  <div className="stage-content">
+                    <div className="stage-header">
+                      <h3>{stage.title}</h3>
+                      <span className={`stage-status ${stage.status}`}>
+                        {stage.status === 'completed' && 'Завершено'}
+                        {stage.status === 'in-progress' && 'В процессе'}
+                        {stage.status === 'planned' && 'Запланировано'}
+                      </span>
+                    </div>
+                    <div className="stage-date">{stage.date}</div>
+                    <p>{stage.content}</p>
                   </div>
                 </motion.div>
               ))}
