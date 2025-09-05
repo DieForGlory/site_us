@@ -23,15 +23,14 @@ const PromotionsPage = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        <img src={promotion.image} alt={promotion.title} />
+                        <img src={promotion.bg} alt={promotion.title} />
                         <div className="promotion-content">
                             <h3>{promotion.title}</h3>
                             <p>{promotion.description}</p>
                             <div className="promotion-details">
-                                <span className="discount">{promotion.discount}</span>
-                                <span className="valid-until">До {promotion.validUntil}</span>
+                                <span className="expires">До {promotion.expires_on}</span>
                             </div>
-                            <Link to={`/promotions/${promotion.id}`} className="btn-primary">
+                            <Link to={`/promotions/${promotion.id}`} className="btn btn-primary">
                                 Подробнее
                             </Link>
                         </div>

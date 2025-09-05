@@ -26,17 +26,17 @@ const SinglePromotionPage = () => {
 
     return (
         <div className="single-promotion-page">
-            <Link to="/promotions" className="back-link">← Назад к акциям</Link>
-            <div className="promotion-detail">
-                <img src={promotion.image} alt={promotion.title} className="promotion-image" />
-                <div className="promotion-info">
-                    <h1>{promotion.title}</h1>
-                    <p className="promotion-description">{promotion.description}</p>
-                    <div className="promotion-dates">
-                        <p><strong>Период действия:</strong> {promotion.startDate} - {promotion.endDate}</p>
-                    </div>
-                    <div className="promotion-discount">
-                        <span className="discount-badge">Скидка {promotion.discount}%</span>
+            <div className="container">
+                <Link to="/promotions" className="back-link">← Назад к акциям</Link>
+                <div className="promotion-detail">
+                    <img src={promotion.bg} alt={promotion.title} className="promotion-image" />
+                    <div className="promotion-info">
+                        <h1>{promotion.title}</h1>
+                        <p className="promotion-description">{promotion.description}</p>
+                        <div className="promotion-dates">
+                            <p><strong>Действует до:</strong> {promotion.expires_on}</p>
+                        </div>
+                        <div className="promotion-content" dangerouslySetInnerHTML={{ __html: promotion.detailed_description }} />
                     </div>
                 </div>
             </div>
