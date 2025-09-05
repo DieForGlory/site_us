@@ -1,0 +1,5 @@
+Flask>=2.0.0
+Flask-SQLAlchemy>=2.5.0
+Flask-Admin>=1.6.0
+Flask-Cors>=3.0.0
+WTForms>=3.0.0
