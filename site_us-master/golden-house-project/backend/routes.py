@@ -21,6 +21,7 @@ def project_to_dict(project):
         'address': project.address,
         'gallery': [url_for('static', filename=f'uploads/{img}', _external=True) for img in project.gallery]
     }
+
 def news_item_to_dict(news_item):
     """Преобразует объект новости в словарь."""
     return {
@@ -30,6 +31,7 @@ def news_item_to_dict(news_item):
         'date': news_item.date,
         'img': url_for('static', filename=f'uploads/{news_item.image_url}', _external=True) if news_item.image_url else None
     }
+
 @api.route('/news', methods=['GET'])
 def get_news():
     """Отдает список всех новостей, отсортированных по ID в обратном порядке."""
@@ -37,6 +39,7 @@ def get_news():
     # .limit(3) - чтобы брать только 3 последние новости для главной страницы
     news_items = NewsItem.query.order_by(NewsItem.id.desc()).limit(3).all()
     return jsonify([news_item_to_dict(n) for n in news_items])
+
 def promotion_to_dict(promo, is_detailed=False):
     data = {
         'id': promo.id,

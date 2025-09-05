@@ -5,14 +5,11 @@ from flask_admin.contrib.sqla import ModelView
 from werkzeug.utils import secure_filename
 import os
 from wtforms.fields import FileField, BooleanField
-# Импортируем только то, что нам точно нужно
-from wtforms.fields import FileField
 
 from models import Project, Promotion, NewsItem
 from extensions import db
 
-
-# Вспомогательный метод для сохранения файлов (без изменений)
+# Вспомогательный метод для сохранения файлов
 def _save_file(file_data):
     if file_data and file_data.filename:
         filename = secure_filename(file_data.filename)
@@ -21,14 +18,10 @@ def _save_file(file_data):
         return filename
     return None
 
-
 class ProjectAdminView(ModelView):
     """Кастомизированное представление для управления Проектами."""
     column_list = ('title', 'status', 'deadline')
 
-    # Убираем все form_columns и form_overrides, так как мы будем управлять формой напрямую
-
-    # --- ИЗМЕНЕНИЕ: Используем scaffold_form для надежного добавления полей ---
     def scaffold_form(self):
         """
         Этот метод вызывается Flask-Admin для создания класса формы.
@@ -72,8 +65,6 @@ class ProjectAdminView(ModelView):
 
         model.gallery = new_gallery
 
-
-# --- Остальные классы остаются без изменений ---
 class PromotionAdminView(ModelView):
     form_columns = ['title', 'description', 'detailed_description', 'bg_image_url', 'expires_on']
     form_overrides = {'bg_image_url': FileField}
@@ -81,7 +72,6 @@ class PromotionAdminView(ModelView):
     def on_model_change(self, form, model, is_created):
         if 'bg_image_url' in request.files and request.files['bg_image_url'].filename:
             model.bg_image_url = _save_file(request.files['bg_image_url'])
-
 
 class NewsAdminView(ModelView):
     form_columns = ['title', 'date', 'description', 'image_url']
@@ -91,7 +81,6 @@ class NewsAdminView(ModelView):
     def on_model_change(self, form, model, is_created):
         if 'image_url' in request.files and request.files['image_url'].filename:
             model.image_url = _save_file(request.files['image_url'])
-
 
 def create_admin(app, db):
     admin = Admin(app, name='Golden House Admin', template_mode='bootstrap4')
