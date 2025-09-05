@@ -10,7 +10,7 @@ const Projects = () => {
   const [filter, setFilter] = useState('all');
   const [hoveredProject, setHoveredProject] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [containerElement, setContainerElement] = useState(null);
+  const containerElement = useRef(null);
   
   const { scrollYProgress } = useScroll({
     target: containerElement,
@@ -196,7 +196,7 @@ const Projects = () => {
   }
 
   return (
-    <section className="projects-section-3d" ref={setContainerElement}>
+    <section className="projects-section-3d" ref={containerElement}>
       <motion.div 
         className="background-elements"
         style={{ y, opacity }}
