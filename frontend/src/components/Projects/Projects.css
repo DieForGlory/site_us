@@ -101,7 +101,7 @@
   height: auto;
 }
 
-.project-card {
+.project-card-3d {
   background: white;
   border-radius: 20px;
   overflow: hidden;
@@ -114,7 +114,7 @@
   border: 1px solid rgba(212, 175, 55, 0.1);
 }
 
-.project-card:hover {
+.project-card-3d:hover {
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
   border-color: var(--color-golden);
 }
@@ -180,7 +180,7 @@
   transition: transform 0.5s ease;
 }
 
-.project-card:hover .project-image {
+.project-card-3d:hover .project-image {
   transform: scale(1.08);
 }
 
@@ -190,47 +190,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.1) 0%,
-    rgba(0, 0, 0, 0.3) 50%,
-    rgba(0, 0, 0, 0.8) 100%
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: var(--transition-normal);
-}
-
-.project-card:hover .image-overlay {
-  opacity: 1;
-}
-
-.overlay-content {
-  text-align: center;
-  color: white;
-}
-
-.price-badge {
-  margin-bottom: 20px;
-}
-
-.price-from {
-  display: block;
-  font-size: 12px;
-  opacity: 0.8;
-  margin-bottom: 5px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.price-value {
-  font-size: 28px;
-  font-weight: 800;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
 .view-details-btn {
   display: flex;
   align-items: center;
@@ -258,21 +217,6 @@
 
 .view-details-btn:hover .arrow {
   transform: translateX(5px);
-}
-
-/* Card Content */
-.card-content {
-  padding: 25px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 15px;
 }
 
 .project-title {
