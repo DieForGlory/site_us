@@ -10,14 +10,20 @@ const Projects = () => {
   const [filter, setFilter] = useState('all');
   const [hoveredProject, setHoveredProject] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [isClient, setIsClient] = useState(false);
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
+  
+  const { scrollYProgress } = isClient ? useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
-  });
+  }) : { scrollYProgress: { get: () => 0 } };
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const y = isClient ? useTransform(scrollYProgress, [0, 1], [100, -100]) : { get: () => 0 };
+  const opacity = isClient ? useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]) : { get: () => 1 };
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
