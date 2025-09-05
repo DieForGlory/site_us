@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { projects } from '../../data/mockData';
 import './Projects.css';
 
@@ -10,15 +10,6 @@ const Projects = () => {
   const [filter, setFilter] = useState('all');
   const [hoveredProject, setHoveredProject] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
-  const containerElement = useRef(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerElement,
-    offset: ["start end", "end start"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -175,15 +166,12 @@ const Projects = () => {
 
   if (loading) {
     return (
-      <section className="projects-section-3d" ref={containerElement}>
-        <motion.div 
-          className="background-elements"
-          style={{ y, opacity }}
-        >
+      <section className="projects-section-3d">
+        <div className="background-elements">
           <div className="floating-shape shape-1"></div>
           <div className="floating-shape shape-2"></div>
           <div className="floating-shape shape-3"></div>
-        </motion.div>
+        </div>
         <div className="container">
           <div className="loading-animation">
             <motion.div
@@ -204,15 +192,12 @@ const Projects = () => {
   }
 
   return (
-    <section className="projects-section-3d" ref={containerElement}>
-      <motion.div 
-        className="background-elements"
-        style={{ y, opacity }}
-      >
+    <section className="projects-section-3d">
+      <div className="background-elements">
         <div className="floating-shape shape-1"></div>
         <div className="floating-shape shape-2"></div>
         <div className="floating-shape shape-3"></div>
-      </motion.div>
+      </div>
       
       <div className="container">
         <motion.div 
