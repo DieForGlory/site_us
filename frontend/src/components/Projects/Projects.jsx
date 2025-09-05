@@ -136,55 +136,77 @@ const Projects = () => {
                     whileHover={{ scale: 1.02 }}
                     onClick={() => setSelectedProject(project)}
                   >
-                    <div className="project-image-container">
+                    <div className="card-header">
+                      <div className="project-location">
+                        <span className="location-icon">📍</span>
+                        {project.location}
+                      </div>
+                      <div className={`project-status ${project.status?.toLowerCase().replace(' ', '-')}`}>
+                        {project.status}
+                      </div>
+                    </div>
+                    
+                    <div className="project-image-wrapper">
                       <img 
                         src={project.images?.[0]} 
                         alt={project.title}
                         className="project-image"
                       />
-                      <div className="project-overlay">
-                        <motion.button
-                          className="quick-view-btn"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                        >
-                          Быстрый просмотр
-                        </motion.button>
-                      </div>
-                      <div className={`status-badge ${project.status?.toLowerCase().replace(' ', '-')}`}>
-                        {project.status}
+                      <div className="image-overlay">
+                        <div className="overlay-content">
+                          <div className="price-badge">
+                            <span className="price-from">от</span>
+                            <span className="price-value">${project.price_from?.toLocaleString()}</span>
+                          </div>
+                          <button className="view-details-btn">
+                            <span>Подробнее</span>
+                            <span className="arrow">→</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                     
-                    <div className="project-info">
-                      <h3>{project.title}</h3>
-                      <p className="project-description">{project.description}</p>
-                      
-                      <div className="project-stats">
-                        <div className="stat">
-                          <span className="stat-value">${project.price_from?.toLocaleString()}</span>
-                          <span className="stat-label">от</span>
-                        </div>
-                        <div className="stat">
-                          <span className="stat-value">{project.location}</span>
-                          <span className="stat-label">локация</span>
+                    <div className="card-content">
+                      <div className="project-header">
+                        <h3 className="project-title">{project.title}</h3>
+                        <div className="completion-date">
+                          <span className="date-icon">🗓️</span>
+                          <span>{new Date(project.completion_date).toLocaleDateString('ru-RU')}</span>
                         </div>
                       </div>
                       
-                      <div className="project-features">
-                        {project.features?.slice(0, 3).map((feature, idx) => (
-                          <span key={idx} className="feature-tag">
-                            {feature}
-                          </span>
+                      <p className="project-description">{project.description}</p>
+                      
+                      <div className="project-highlights">
+                        {project.features?.slice(0, 4).map((feature, idx) => (
+                          <div key={idx} className="highlight-item">
+                            <span className="highlight-dot"></span>
+                            <span className="highlight-text">{feature}</span>
+                          </div>
                         ))}
                       </div>
                       
-                      <Link 
-                        to={`/projects/${project.id}`} 
-                        className="btn btn-primary project-btn"
-                      >
-                        Подробнее
-                      </Link>
+                      <div className="card-footer">
+                        <div className="project-stats">
+                          <div className="stat-item">
+                            <span className="stat-icon">🏠</span>
+                            <span className="stat-text">Квартиры от 1 до 4 комн.</span>
+                          </div>
+                          <div className="stat-item">
+                            <span className="stat-icon">🚗</span>
+                            <span className="stat-text">Подземный паркинг</span>
+                          </div>
+                        </div>
+                        
+                        <Link 
+                          to={`/projects/${project.id}`} 
+                          className="card-action-btn"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <span>Узнать больше</span>
+                          <span className="btn-icon">📋</span>
+                        </Link>
+                      </div>
                     </div>
                   </motion.div>
                 </SwiperSlide>
