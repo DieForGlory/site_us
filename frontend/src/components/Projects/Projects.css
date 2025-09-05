@@ -343,6 +343,8 @@
   border-radius: 50%;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: var(--transition-normal);
+  top: 40%;
+  z-index: 10;
 }
 
 .projects-swiper .swiper-button-next:hover,
@@ -350,6 +352,14 @@
   background: var(--color-golden);
   color: white;
   transform: scale(1.1);
+}
+
+.projects-swiper .swiper-button-prev {
+  left: -25px;
+}
+
+.projects-swiper .swiper-button-next {
+  right: -25px;
 }
 
 .projects-swiper .swiper-button-next::after,
