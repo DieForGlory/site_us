@@ -6,6 +6,7 @@ export const projects = [
     price_from: 150000,
     location: "Центр города",
     status: "В продаже",
+    housing_class: "элит",
     completion_date: "2024-12-31",
     images: [
       "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg",
@@ -21,6 +22,7 @@ export const projects = [
     price_from: 120000,
     location: "Парковая зона",
     status: "В продаже",
+    housing_class: "комфорт",
     completion_date: "2025-06-30",
     images: [
       "https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg",
@@ -36,6 +38,7 @@ export const projects = [
     price_from: 200000,
     location: "Деловой центр",
     status: "Строится",
+    housing_class: "бизнес",
     completion_date: "2025-12-31",
     images: [
       "https://images.pexels.com/photos/1370704/pexels-photo-1370704.jpeg",

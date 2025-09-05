@@ -28,14 +28,14 @@ const Projects = () => {
 
   const filteredProjects = projectsData.filter(project => {
     if (filter === 'all') return true;
-    return project.status?.toLowerCase() === filter;
+    return project.housing_class?.toLowerCase() === filter;
   });
 
   const filterOptions = [
     { key: 'all', label: 'Все проекты' },
-    { key: 'в продаже', label: 'В продаже' },
-    { key: 'строится', label: 'Строится' },
-    { key: 'сдан', label: 'Сданные' }
+    { key: 'комфорт', label: 'Комфорт' },
+    { key: 'бизнес', label: 'Бизнес' },
+    { key: 'элит', label: 'Элит' }
   ];
 
   if (loading) {
